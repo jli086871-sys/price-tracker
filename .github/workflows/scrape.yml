@@ -1,0 +1,42 @@
+# 自动爬取期货数据（免费 · 每日08:30 + 17:00运行）
+# 数据来源：广期所(碳酸锂) + 上期所(铜/铝)
+# 使用方法：push 到 GitHub 仓库自动生效
+
+name: Scrape Futures Prices
+
+on:
+  schedule:
+    # 工作日 08:30 UTC+8 = 00:30 UTC
+    - cron: '30 0 * * 1-5'
+    # 工作日 17:00 UTC+8 = 09:00 UTC
+    - cron: '0 9 * * 1-5'
+  workflow_dispatch: # 手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 lxml
+
+      - name: Run scraper
+        run: python scripts/scrape_prices.py
+
+      - name: Commit & Push
+        run: |
+          git config user.name "price-bot"
+          git config user.email "bot@localhost"
+          git add data.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "auto: update prices $(date '+%Y-%m-%d %H:%M')"
+          git push

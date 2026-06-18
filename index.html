@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>材料涨价监测站 — 第一时间发现投资机会</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card-hover: #273549;
+    --border: #334155;
+    --text: #f1f5f9;
+    --text-dim: #94a3b8;
+    --red: #ef4444;
+    --red-bg: rgba(239,68,68,0.12);
+    --green: #22c55e;
+    --green-bg: rgba(34,197,94,0.12);
+    --orange: #f59e0b;
+    --accent: #3b82f6;
+    --accent-dim: rgba(59,130,246,0.15);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 0;
+    min-height: 100vh;
+  }
+  .container { max-width: 1240px; margin: 0 auto; padding: 20px 16px 80px; }
+
+  /* HEADER */
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+    padding: 16px 0 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-size: 1.5em; font-weight: 700;
+    background: linear-gradient(90deg, #3b82f6, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-right {
+    font-size: 0.82em; color: var(--text-dim);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .header-right .dot {
+    display: inline-block; width: 8px; height: 8px;
+    background: var(--green); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .badge-manual {
+    background: var(--accent-dim); color: var(--accent);
+    padding: 2px 10px; border-radius: 12px; font-size: 0.75em;
+  }
+  .badge-auto {
+    background: var(--green-bg); color: var(--green);
+    padding: 2px 10px; border-radius: 12px; font-size: 0.75em;
+  }
+
+  /* CATEGORY FILTER */
+  .filter-bar {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 20px;
+  }
+  .filter-btn {
+    padding: 6px 16px; border-radius: 20px;
+    background: transparent; color: var(--text-dim);
+    border: 1px solid var(--border); cursor: pointer;
+    font-size: 0.85em; transition: all 0.2s;
+  }
+  .filter-btn:hover { background: var(--card-hover); }
+  .filter-btn.active {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+  }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--card); border-radius: 10px;
+    padding: 14px; text-align: center;
+    border: 1px solid var(--border);
+  }
+  .stat-count { font-size: 1.5em; font-weight: 700; }
+  .stat-label { font-size: 0.75em; color: var(--text-dim); margin-top: 2px; }
+  .stat-up .stat-count { color: var(--red); }
+  .stat-down .stat-count { color: var(--green); }
+
+  /* CARD GRID */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .card:hover {
+    background: var(--card-hover);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  .card-top {
+    display: flex; justify-content: space-between; align-items: start;
+    margin-bottom: 8px;
+  }
+  .card-cat {
+    font-size: 0.7em; color: var(--text-dim);
+    padding: 2px 8px; border-radius: 8px;
+    background: var(--accent-dim);
+  }
+  .card-name {
+    font-size: 1.05em; font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .card-sub {
+    font-size: 0.78em; color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  .card-price-row {
+    display: flex; align-items: baseline; gap: 10px;
+    margin-bottom: 8px;
+  }
+  .card-price {
+    font-size: 1.6em; font-weight: 700;
+  }
+  .card-unit {
+    font-size: 0.8em; color: var(--text-dim);
+  }
+  .card-changes {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .change-badge {
+    padding: 2px 8px; border-radius: 6px;
+    font-size: 0.75em; font-weight: 600;
+  }
+  .change-badge.up { background: var(--red-bg); color: var(--red); }
+  .change-badge.down { background: var(--green-bg); color: var(--green); }
+  .change-badge.flat { background: rgba(148,163,184,0.15); color: var(--text-dim); }
+
+  .card-stock {
+    font-size: 0.78em; color: var(--accent);
+    margin-top: 8px;
+  }
+  .card-source {
+    font-size: 0.7em; color: var(--text-dim);
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 6px;
+  }
+
+  /* CHART AREA */
+  .chart-section {
+    margin-top: 32px;
+  }
+  .chart-tabs {
+    display: flex; gap: 8px;
+    margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .chart-tab {
+    padding: 6px 14px; border-radius: 8px;
+    background: var(--card); color: var(--text-dim);
+    border: 1px solid var(--border); cursor: pointer;
+    font-size: 0.82em; transition: all 0.15s;
+  }
+  .chart-tab:hover { background: var(--card-hover); }
+  .chart-tab.active {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+  }
+  .chart-box {
+    background: var(--card); border-radius: 12px;
+    padding: 20px; border: 1px solid var(--border);
+    height: 360px;
+    position: relative;
+  }
+  .chart-box canvas { width: 100% !important; height: 320px !important; }
+  .chart-empty {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-dim); font-size: 0.9em;
+  }
+
+  /* RANKING TABLE */
+  .rank-section { margin-top: 32px; }
+  .rank-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.88em;
+  }
+  .rank-table thead th {
+    background: var(--card); color: var(--text-dim);
+    padding: 10px 12px; text-align: left;
+    font-weight: 600; font-size: 0.82em;
+    border-bottom: 2px solid var(--border);
+  }
+  .rank-table tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .rank-table tbody tr:hover { background: var(--card-hover); }
+  .rank-num { font-weight: 700; color: var(--text-dim); width: 32px; }
+  .rank-1st { color: #f59e0b; }
+  .rank-2nd { color: #94a3b8; }
+  .rank-3rd { color: #a1887f; }
+  .td-name { font-weight: 600; }
+  .td-price { font-weight: 600; text-align: right; }
+  .td-chg { text-align: right; }
+  .td-chg.up { color: var(--red); }
+  .td-chg.down { color: var(--green); }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 48px; padding: 20px 0;
+    text-align: center; border-top: 1px solid var(--border);
+    font-size: 0.78em; color: var(--text-dim);
+  }
+
+  @media (max-width: 640px) {
+    .card-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 1.2em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>📊 材料涨价监测站</h1>
+    <div class="header-right">
+      <span class="dot"></span>
+      <span id="updateTime">加载中...</span>
+      <span class="badge-auto">期货自动</span>
+      <span class="badge-manual">特气手动</span>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-filter="all">全部</button>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card stat-up">
+      <div class="stat-count" id="upCount">0</div>
+      <div class="stat-label">品种上涨</div>
+    </div>
+    <div class="stat-card stat-down">
+      <div class="stat-count" id="downCount">0</div>
+      <div class="stat-label">品种下跌</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-count" id="hotCount">0</div>
+      <div class="stat-label">月涨>20%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-count" id="totalCount">0</div>
+      <div class="stat-label">追踪品种</div>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="card-grid" id="cardGrid"></div>
+
+  <!-- CHART -->
+  <div class="chart-section">
+    <div class="chart-tabs" id="chartTabs"></div>
+    <div class="chart-box">
+      <canvas id="priceChart"></canvas>
+      <div class="chart-empty" id="chartEmpty">👆 点击上方品种查看价格走势</div>
+    </div>
+  </div>
+
+  <!-- RANKING -->
+  <div class="rank-section">
+    <h3 style="font-weight:600;margin-bottom:12px;font-size:1em;">🏆 月度涨幅排行</h3>
+    <div style="overflow-x:auto;">
+      <table class="rank-table" id="rankTable">
+        <thead>
+          <tr><th>#</th><th>品种</th><th>分类</th><th style="text-align:right">最新价</th><th style="text-align:right">月涨幅</th><th style="text-align:right">季涨幅</th><th style="text-align:right">年涨幅</th></tr>
+        </thead>
+        <tbody id="rankBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>数据来源：广期所 · 上期所 · 生意社 · 百川盈孚 · 隆众资讯 · 手工录入</p>
+    <p style="margin-top:4px;">⚠️ 不构成投资建议 · 数据仅供参考 · 每日更新</p>
+  </div>
+</div>
+
+<script>
+let data = null;
+let chart = null;
+let selectedForChart = null;
+
+function fmt(num) {
+  if (num === null || num === undefined) return '—';
+  if (typeof num === 'string') return num;
+  if (num >= 10000) return num.toLocaleString('zh-CN');
+  if (num >= 100) return num.toLocaleString('zh-CN', {maximumFractionDigits:1});
+  return num.toLocaleString('zh-CN', {maximumFractionDigits:2});
+}
+
+function pct(num) {
+  if (num === null || num === undefined || !isFinite(num)) return '—';
+  const s = num >= 0 ? '+' : '';
+  return s + num.toFixed(1) + '%';
+}
+
+function calcPct(now, prev) {
+  if (!prev || prev === 0) return null;
+  return (now - prev) / prev * 100;
+}
+
+function badge(chg) {
+  if (chg === null || chg === undefined) return '<span class="change-badge flat">—</span>';
+  if (chg > 0) return `<span class="change-badge up">+${chg.toFixed(1)}%</span>`;
+  if (chg < 0) return `<span class="change-badge down">${chg.toFixed(1)}%</span>`;
+  return '<span class="change-badge flat">0%</span>';
+}
+
+function arrow(chg) {
+  if (chg === null) return '';
+  if (chg > 20) return '🔴↑↑';
+  if (chg > 8) return '🔴↑';
+  if (chg > 2) return '🟡↑';
+  if (chg < -20) return '🟢↓↓';
+  if (chg < -8) return '🟢↓';
+  if (chg < -2) return '🟡↓';
+  return '➖';
+}
+
+function categories(products) {
+  const cats = new Set();
+  products.forEach(p => cats.add(p.category));
+  return ['全部', ...Array.from(cats).sort()];
+}
+
+function render() {
+  if (!data) return;
+  const prods = data.products;
+
+  // Update time
+  document.getElementById('updateTime').textContent = `更新: ${data.update_time || '—'}`;
+
+  // Filters
+  const filterBar = document.getElementById('filterBar');
+  const cats = categories(prods);
+  filterBar.innerHTML = cats.map(c =>
+    `<button class="filter-btn ${c === '全部' ? 'active' : ''}" data-filter="${c}">${c}</button>`
+  ).join('');
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCards();
+      renderRank();
+    });
+  });
+
+  // Stats
+  const activeFilter = document.querySelector('.filter-btn.active')?.dataset?.filter || '全部';
+  const filtered = activeFilter === '全部' ? prods : prods.filter(p => p.category === activeFilter);
+  const up = filtered.filter(p => calcPct(p.price, p.month_ago) > 0).length;
+  const down = filtered.filter(p => calcPct(p.price, p.month_ago) < 0).length;
+  const hot = filtered.filter(p => calcPct(p.price, p.month_ago) > 20).length;
+  document.getElementById('upCount').textContent = up;
+  document.getElementById('downCount').textContent = down;
+  document.getElementById('hotCount').textContent = hot;
+  document.getElementById('totalCount').textContent = filtered.length;
+
+  renderCards();
+  renderChartTabs();
+  renderRank();
+}
+
+function renderCards() {
+  const grid = document.getElementById('cardGrid');
+  const activeFilter = document.querySelector('.filter-btn.active')?.dataset?.filter || '全部';
+  const prods = activeFilter === '全部' ? data.products : data.products.filter(p => p.category === activeFilter);
+
+  grid.innerHTML = prods.map(p => {
+    const chgDay = calcPct(p.price, p.prev_close);
+    const chgWeek = calcPct(p.price, p.week_ago);
+    const chgMonth = calcPct(p.price, p.month_ago);
+    const sourceClass = (p.source || '').includes('所') ? 'badge-auto' : 'badge-manual';
+    return `<div class="card" data-id="${p.id}">
+      <div class="card-top">
+        <span class="card-cat">${p.category}</span>
+        <span class="${sourceClass}" style="padding:2px 8px;border-radius:8px;font-size:0.7em;">${p.source||'手动'}</span>
+      </div>
+      <div class="card-name">${p.name}</div>
+      <div class="card-price-row">
+        <span class="card-price">${fmt(p.price)}</span>
+        <span class="card-unit">${p.unit}</span>
+        ${arrow(chgMonth)}
+      </div>
+      <div class="card-changes">
+        ${badge(chgDay)} <span style="font-size:0.7em;color:var(--text-dim);">日</span>
+        ${badge(chgWeek)} <span style="font-size:0.7em;color:var(--text-dim);">周</span>
+        ${badge(chgMonth)} <span style="font-size:0.7em;color:var(--text-dim);">月</span>
+        ${badge(calcPct(p.price, p.quarter_ago))} <span style="font-size:0.7em;color:var(--text-dim);">季</span>
+        ${badge(calcPct(p.price, p.year_ago))} <span style="font-size:0.7em;color:var(--text-dim);">年</span>
+      </div>
+      <div class="card-stock">📌 ${p.pe_stock || '—'}</div>
+    </div>`;
+  }).join('');
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      selectProduct(id);
+      document.querySelectorAll('.card').forEach(c => c.style.borderColor = '');
+      card.style.borderColor = 'var(--accent)';
+    });
+  });
+
+  // Auto-select first if none selected
+  if (!selectedForChart && prods.length > 0) {
+    selectProduct(prods[0].id);
+  }
+}
+
+function selectProduct(id) {
+  selectedForChart = id;
+  const p = data.products.find(pr => pr.id === id);
+  if (!p) return;
+
+  document.getElementById('chartEmpty').style.display = 'none';
+  updateChart(p);
+
+  // highlight card
+  document.querySelectorAll('.card').forEach(c => c.style.borderColor = '');
+  const cardEl = document.querySelector(`.card[data-id="${id}"]`);
+  if (cardEl) cardEl.style.borderColor = 'var(--accent)';
+
+  // highlight tab
+  document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.chart-tab[data-id="${id}"]`)?.classList.add('active');
+}
+
+function renderChartTabs() {
+  const container = document.getElementById('chartTabs');
+  container.innerHTML = data.products.map(p =>
+    `<button class="chart-tab ${p.id === selectedForChart ? 'active' : ''}" data-id="${p.id}">${p.name}</button>`
+  ).join('');
+  document.querySelectorAll('.chart-tab').forEach(btn => {
+    btn.addEventListener('click', () => selectProduct(btn.dataset.id));
+  });
+}
+
+function updateChart(p) {
+  const ctx = document.getElementById('priceChart').getContext('2d');
+  if (chart) chart.destroy();
+
+  const values = p.prices.map(v => v.price);
+  const labels = p.prices.map(v => v.date);
+
+  const isUp = values[values.length-1] >= values[0];
+  const lineColor = isUp ? '#ef4444' : '#22c55e';
+  const fillColor = isUp ? 'rgba(239,68,68,0.08)' : 'rgba(34,197,94,0.08)';
+
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: `${p.name} (${p.unit})`,
+        data: values,
+        borderColor: lineColor,
+        backgroundColor: fillColor,
+        fill: true,
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: lineColor,
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => `${ctx.parsed.y} ${p.unit}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#94a3b8', maxTicksLimit: 10, font: {size: 10} },
+          grid: { color: 'rgba(148,163,184,0.1)' }
+        },
+        y: {
+          ticks: { color: '#94a3b8', font: {size: 10} },
+          grid: { color: 'rgba(148,163,184,0.1)' }
+        }
+      }
+    }
+  });
+}
+
+function renderRank() {
+  const activeFilter = document.querySelector('.filter-btn.active')?.dataset?.filter || '全部';
+  const prods = activeFilter === '全部' ? data.products : data.products.filter(p => p.category === activeFilter);
+
+  const ranked = prods.map(p => ({
+    ...p,
+    chgMonth: calcPct(p.price, p.month_ago),
+    chgQuarter: calcPct(p.price, p.quarter_ago),
+    chgYear: calcPct(p.price, p.year_ago),
+  })).sort((a, b) => (b.chgMonth || -9999) - (a.chgMonth || -9999));
+
+  const body = document.getElementById('rankBody');
+  body.innerHTML = ranked.map((p, i) => {
+    let cls = '';
+    if (i === 0) cls = 'rank-1st';
+    else if (i === 1) cls = 'rank-2nd';
+    else if (i === 2) cls = 'rank-3rd';
+    return `<tr>
+      <td><span class="rank-num ${cls}">${i+1}</span></td>
+      <td class="td-name">${p.name}</td>
+      <td style="color:var(--text-dim);font-size:0.85em;">${p.category}</td>
+      <td class="td-price">${fmt(p.price)}</td>
+      <td class="td-chg ${(p.chgMonth||0)>=0?'up':'down'}">${pct(p.chgMonth)}</td>
+      <td class="td-chg ${(p.chgQuarter||0)>=0?'up':'down'}">${pct(p.chgQuarter)}</td>
+      <td class="td-chg ${(p.chgYear||0)>=0?'up':'down'}">${pct(p.chgYear)}</td>
+    </tr>`;
+  }).join('');
+}
+
+// Load data
+fetch('data.json')
+  .then(r => r.json())
+  .then(d => {
+    data = d;
+    render();
+  })
+  .catch(() => {
+    document.getElementById('cardGrid').innerHTML =
+      '<div style="text-align:center;color:var(--text-dim);padding:60px 0;">⚠️ 数据加载失败，请检查 data.json 文件</div>';
+  });
+</script>
+</body>
+</html>
