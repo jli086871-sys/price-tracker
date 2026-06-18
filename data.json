@@ -1,73 +1,701 @@
 {
   "update_time": "2026-06-18",
-  "update_note": "数据来源：SMM/生意社/广期所/百川盈孚/隆众资讯",
+  "update_note": "自动: 上期所/大商所/郑商所/广期所/上海能源中心 ｜ 手动: 百川/生意社/隆众 ｜ 新闻: 网络公开资讯",
   "products": [
     {
-      "id": "wf6_6n",
+      "id": "copper",
+      "name": "沪铜",
+      "category": "基本金属",
+      "unit": "元/吨",
+      "price": 104860,
+      "prev_close": 105180,
+      "week_ago": 106200,
+      "month_ago": 108500,
+      "quarter_ago": 102000,
+      "year_ago": 98000,
+      "source": "上期所主力·自动",
+      "pe_stock": "紫金矿业/江西铜业/铜陵有色",
+      "contract": "cu2508",
+      "exchange": "SHFE",
+      "prices": [
+        {"date": "2025-01", "price": 78000},
+        {"date": "2025-06", "price": 82000},
+        {"date": "2025-09", "price": 74000},
+        {"date": "2026-01", "price": 102000},
+        {"date": "2026-03", "price": 108500},
+        {"date": "2026-04", "price": 110000},
+        {"date": "2026-05", "price": 106800},
+        {"date": "2026-06-10", "price": 106200},
+        {"date": "2026-06-17", "price": 105180},
+        {"date": "2026-06-18", "price": 104860}
+      ]
+    },
+    {
+      "id": "aluminum",
+      "name": "沪铝",
+      "category": "基本金属",
+      "unit": "元/吨",
+      "price": 24035,
+      "prev_close": 24030,
+      "week_ago": 24150,
+      "month_ago": 24300,
+      "quarter_ago": 23800,
+      "year_ago": 21800,
+      "source": "上期所主力·自动",
+      "pe_stock": "中国铝业/南山铝业/云铝股份",
+      "contract": "al2508",
+      "exchange": "SHFE",
+      "prices": [
+        {"date": "2025-01", "price": 19800},
+        {"date": "2025-06", "price": 20800},
+        {"date": "2025-09", "price": 19500},
+        {"date": "2026-01", "price": 23800},
+        {"date": "2026-03", "price": 24300},
+        {"date": "2026-04", "price": 24100},
+        {"date": "2026-05", "price": 23900},
+        {"date": "2026-06-10", "price": 24150},
+        {"date": "2026-06-17", "price": 24030},
+        {"date": "2026-06-18", "price": 24035}
+      ]
+    },
+    {
+      "id": "zinc",
+      "name": "沪锌",
+      "category": "基本金属",
+      "unit": "元/吨",
+      "price": 24820,
+      "prev_close": 24680,
+      "week_ago": 24500,
+      "month_ago": 24000,
+      "quarter_ago": 23000,
+      "year_ago": 22000,
+      "source": "上期所主力·自动",
+      "pe_stock": "驰宏锌锗/中金岭南/锌业股份",
+      "contract": "zn2508",
+      "exchange": "SHFE",
+      "prices": [
+        {"date": "2026-01", "price": 23000},
+        {"date": "2026-03", "price": 24000},
+        {"date": "2026-04", "price": 24300},
+        {"date": "2026-05", "price": 24500},
+        {"date": "2026-06-10", "price": 24500},
+        {"date": "2026-06-17", "price": 24680},
+        {"date": "2026-06-18", "price": 24820}
+      ]
+    },
+    {
+      "id": "lead",
+      "name": "沪铅",
+      "category": "基本金属",
+      "unit": "元/吨",
+      "price": 16450,
+      "prev_close": 16455,
+      "week_ago": 16500,
+      "month_ago": 16600,
+      "quarter_ago": 16200,
+      "year_ago": 15800,
+      "source": "上期所主力·自动",
+      "pe_stock": "豫光金铅",
+      "contract": "pb2508",
+      "exchange": "SHFE",
+      "prices": [
+        {"date": "2026-01", "price": 16200},
+        {"date": "2026-03", "price": 16600},
+        {"date": "2026-04", "price": 16500},
+        {"date": "2026-05", "price": 16550},
+        {"date": "2026-06-10", "price": 16500},
+        {"date": "2026-06-17", "price": 16455},
+        {"date": "2026-06-18", "price": 16450}
+      ]
+    },
+    {
+      "id": "nickel",
+      "name": "沪镍",
+      "category": "基本金属",
+      "unit": "元/吨",
+      "price": 136700,
+      "prev_close": 136280,
+      "week_ago": 135000,
+      "month_ago": 130000,
+      "quarter_ago": 128000,
+      "year_ago": 125000,
+      "source": "上期所主力·自动",
+      "pe_stock": "华友钴业/格林美/盛屯矿业",
+      "contract": "ni2509",
+      "exchange": "SHFE",
+      "prices": [
+        {"date": "2026-01", "price": 128000},
+        {"date": "2026-03", "price": 130000},
+        {"date": "2026-04", "price": 132000},
+        {"date": "2026-05", "price": 134000},
+        {"date": "2026-06-10", "price": 135000},
+        {"date": "2026-06-17", "price": 136280},
+        {"date": "2026-06-18", "price": 136700}
+      ]
+    },
+    {
+      "id": "tin",
+      "name": "沪锡",
+      "category": "基本金属",
+      "unit": "元/吨",
+      "price": 414330,
+      "prev_close": 417370,
+      "week_ago": 420000,
+      "month_ago": 430000,
+      "quarter_ago": 400000,
+      "year_ago": 360000,
+      "source": "上期所主力·自动",
+      "pe_stock": "锡业股份",
+      "contract": "sn2507",
+      "exchange": "SHFE",
+      "prices": [
+        {"date": "2026-01", "price": 400000},
+        {"date": "2026-03", "price": 430000},
+        {"date": "2026-04", "price": 425000},
+        {"date": "2026-05", "price": 420000},
+        {"date": "2026-06-10", "price": 420000},
+        {"date": "2026-06-17", "price": 417370},
+        {"date": "2026-06-18", "price": 414330}
+      ]
+    },
+    {
+      "id": "rebar",
+      "name": "螺纹钢",
+      "category": "黑色金属",
+      "unit": "元/吨",
+      "price": 3131,
+      "prev_close": 3158,
+      "week_ago": 3200,
+      "month_ago": 3300,
+      "quarter_ago": 3400,
+      "year_ago": 3600,
+      "source": "上期所主力·自动",
+      "pe_stock": "宝钢股份/鞍钢股份/沙钢股份",
+      "contract": "rb2610",
+      "exchange": "SHFE",
+      "prices": [
+        {"date": "2025-01", "price": 3700},
+        {"date": "2025-06", "price": 3500},
+        {"date": "2026-01", "price": 3400},
+        {"date": "2026-03", "price": 3300},
+        {"date": "2026-04", "price": 3250},
+        {"date": "2026-05", "price": 3200},
+        {"date": "2026-06-10", "price": 3200},
+        {"date": "2026-06-17", "price": 3158},
+        {"date": "2026-06-18", "price": 3131}
+      ]
+    },
+    {
+      "id": "hot_rolled",
+      "name": "热轧卷板",
+      "category": "黑色金属",
+      "unit": "元/吨",
+      "price": 3280,
+      "prev_close": 3300,
+      "week_ago": 3350,
+      "month_ago": 3400,
+      "quarter_ago": 3500,
+      "year_ago": 3700,
+      "source": "上期所主力·自动",
+      "pe_stock": "宝钢股份/首钢股份",
+      "contract": "hc2610",
+      "exchange": "SHFE",
+      "prices": [
+        {"date": "2026-01", "price": 3500},
+        {"date": "2026-03", "price": 3400},
+        {"date": "2026-04", "price": 3350},
+        {"date": "2026-05", "price": 3300},
+        {"date": "2026-06-10", "price": 3350},
+        {"date": "2026-06-17", "price": 3300},
+        {"date": "2026-06-18", "price": 3280}
+      ]
+    },
+    {
+      "id": "gold",
+      "name": "沪金",
+      "category": "贵金属",
+      "unit": "元/克",
+      "price": 698.5,
+      "prev_close": 699.2,
+      "week_ago": 695.0,
+      "month_ago": 680.0,
+      "quarter_ago": 650.0,
+      "year_ago": 580.0,
+      "source": "上期所主力·自动",
+      "pe_stock": "山东黄金/中金黄金/紫金矿业",
+      "contract": "au2508",
+      "exchange": "SHFE",
+      "prices": [
+        {"date": "2025-01", "price": 520},
+        {"date": "2025-06", "price": 560},
+        {"date": "2025-09", "price": 540},
+        {"date": "2026-01", "price": 650},
+        {"date": "2026-03", "price": 680},
+        {"date": "2026-04", "price": 690},
+        {"date": "2026-05", "price": 695},
+        {"date": "2026-06-10", "price": 695},
+        {"date": "2026-06-17", "price": 699.2},
+        {"date": "2026-06-18", "price": 698.5}
+      ]
+    },
+    {
+      "id": "silver",
+      "name": "沪银",
+      "category": "贵金属",
+      "unit": "元/千克",
+      "price": 9020,
+      "prev_close": 9050,
+      "week_ago": 8950,
+      "month_ago": 8700,
+      "quarter_ago": 8200,
+      "year_ago": 7500,
+      "source": "上期所主力·自动",
+      "pe_stock": "盛达资源/银泰黄金",
+      "contract": "ag2508",
+      "exchange": "SHFE",
+      "prices": [
+        {"date": "2025-01", "price": 6500},
+        {"date": "2025-06", "price": 7200},
+        {"date": "2026-01", "price": 8200},
+        {"date": "2026-03", "price": 8700},
+        {"date": "2026-04", "price": 8800},
+        {"date": "2026-05", "price": 8800},
+        {"date": "2026-06-10", "price": 8950},
+        {"date": "2026-06-17", "price": 9050},
+        {"date": "2026-06-18", "price": 9020}
+      ]
+    },
+    {
+      "id": "lithium_carbonate",
+      "name": "碳酸锂",
+      "category": "新能源",
+      "unit": "元/吨",
+      "price": 169800,
+      "prev_close": 172000,
+      "week_ago": 175000,
+      "month_ago": 125000,
+      "quarter_ago": 75000,
+      "year_ago": 75000,
+      "source": "广期所主力·自动",
+      "pe_stock": "西藏矿业/天齐锂业/赣锋锂业",
+      "contract": "lc2508",
+      "exchange": "GFEX",
+      "prices": [
+        {"date": "2024-01", "price": 95000},
+        {"date": "2024-06", "price": 105000},
+        {"date": "2025-01", "price": 75000},
+        {"date": "2025-06", "price": 95000},
+        {"date": "2025-09", "price": 75000},
+        {"date": "2025-12", "price": 78000},
+        {"date": "2026-01", "price": 85000},
+        {"date": "2026-03", "price": 125000},
+        {"date": "2026-04", "price": 150000},
+        {"date": "2026-05-13", "price": 209000},
+        {"date": "2026-06-01", "price": 182000},
+        {"date": "2026-06-10", "price": 165000},
+        {"date": "2026-06-17", "price": 172000},
+        {"date": "2026-06-18", "price": 169800}
+      ]
+    },
+    {
+      "id": "industrial_silicon",
+      "name": "工业硅",
+      "category": "新能源",
+      "unit": "元/吨",
+      "price": 12500,
+      "prev_close": 12600,
+      "week_ago": 12800,
+      "month_ago": 13000,
+      "quarter_ago": 13500,
+      "year_ago": 14000,
+      "source": "广期所主力·自动",
+      "pe_stock": "合盛硅业/东岳硅材",
+      "contract": "si2509",
+      "exchange": "GFEX",
+      "prices": [
+        {"date": "2025-01", "price": 14000},
+        {"date": "2025-06", "price": 13800},
+        {"date": "2026-01", "price": 13500},
+        {"date": "2026-03", "price": 13000},
+        {"date": "2026-04", "price": 12800},
+        {"date": "2026-05", "price": 12700},
+        {"date": "2026-06-10", "price": 12800},
+        {"date": "2026-06-17", "price": 12600},
+        {"date": "2026-06-18", "price": 12500}
+      ]
+    },
+    {
+      "id": "iron_ore",
+      "name": "铁矿石",
+      "category": "黑色金属",
+      "unit": "元/吨",
+      "price": 865,
+      "prev_close": 872,
+      "week_ago": 880,
+      "month_ago": 900,
+      "quarter_ago": 920,
+      "year_ago": 850,
+      "source": "大商所主力·自动",
+      "pe_stock": "海南矿业/金岭矿业",
+      "contract": "i2509",
+      "exchange": "DCE",
+      "prices": [
+        {"date": "2025-01", "price": 850},
+        {"date": "2025-06", "price": 860},
+        {"date": "2026-01", "price": 920},
+        {"date": "2026-03", "price": 900},
+        {"date": "2026-04", "price": 895},
+        {"date": "2026-05", "price": 890},
+        {"date": "2026-06-10", "price": 880},
+        {"date": "2026-06-17", "price": 872},
+        {"date": "2026-06-18", "price": 865}
+      ]
+    },
+    {
+      "id": "coke",
+      "name": "焦炭",
+      "category": "黑色金属",
+      "unit": "元/吨",
+      "price": 2180,
+      "prev_close": 2200,
+      "week_ago": 2250,
+      "month_ago": 2350,
+      "quarter_ago": 2500,
+      "year_ago": 2200,
+      "source": "大商所主力·自动",
+      "pe_stock": "山西焦化/美锦能源",
+      "contract": "j2509",
+      "exchange": "DCE",
+      "prices": [
+        {"date": "2025-01", "price": 2200},
+        {"date": "2025-06", "price": 2400},
+        {"date": "2026-01", "price": 2500},
+        {"date": "2026-03", "price": 2350},
+        {"date": "2026-04", "price": 2280},
+        {"date": "2026-05", "price": 2250},
+        {"date": "2026-06-10", "price": 2250},
+        {"date": "2026-06-17", "price": 2200},
+        {"date": "2026-06-18", "price": 2180}
+      ]
+    },
+    {
+      "id": "coking_coal",
+      "name": "焦煤",
+      "category": "黑色金属",
+      "unit": "元/吨",
+      "price": 1380,
+      "prev_close": 1395,
+      "week_ago": 1420,
+      "month_ago": 1500,
+      "quarter_ago": 1600,
+      "year_ago": 1450,
+      "source": "大商所主力·自动",
+      "pe_stock": "淮北矿业/平煤股份",
+      "contract": "jm2509",
+      "exchange": "DCE",
+      "prices": [
+        {"date": "2025-01", "price": 1450},
+        {"date": "2025-06", "price": 1550},
+        {"date": "2026-01", "price": 1600},
+        {"date": "2026-03", "price": 1500},
+        {"date": "2026-04", "price": 1450},
+        {"date": "2026-05", "price": 1420},
+        {"date": "2026-06-10", "price": 1420},
+        {"date": "2026-06-17", "price": 1395},
+        {"date": "2026-06-18", "price": 1380}
+      ]
+    },
+    {
+      "id": "crude_oil",
+      "name": "原油",
+      "category": "能源",
+      "unit": "元/桶",
+      "price": 585,
+      "prev_close": 590,
+      "week_ago": 595,
+      "month_ago": 610,
+      "quarter_ago": 580,
+      "year_ago": 560,
+      "source": "上海能源中心·自动",
+      "pe_stock": "中国石油/中国海油",
+      "contract": "sc2508",
+      "exchange": "INE",
+      "prices": [
+        {"date": "2025-01", "price": 560},
+        {"date": "2025-06", "price": 580},
+        {"date": "2026-01", "price": 580},
+        {"date": "2026-03", "price": 610},
+        {"date": "2026-04", "price": 605},
+        {"date": "2026-05", "price": 598},
+        {"date": "2026-06-10", "price": 595},
+        {"date": "2026-06-17", "price": 590},
+        {"date": "2026-06-18", "price": 585}
+      ]
+    },
+    {
+      "id": "pta",
+      "name": "PTA",
+      "category": "化工",
+      "unit": "元/吨",
+      "price": 5650,
+      "prev_close": 5680,
+      "week_ago": 5700,
+      "month_ago": 5800,
+      "quarter_ago": 5600,
+      "year_ago": 5500,
+      "source": "郑商所主力·自动",
+      "pe_stock": "恒力石化/荣盛石化",
+      "contract": "TA509",
+      "exchange": "CZCE",
+      "prices": [
+        {"date": "2025-01", "price": 5500},
+        {"date": "2025-06", "price": 5550},
+        {"date": "2026-01", "price": 5600},
+        {"date": "2026-03", "price": 5800},
+        {"date": "2026-04", "price": 5750},
+        {"date": "2026-05", "price": 5700},
+        {"date": "2026-06-10", "price": 5700},
+        {"date": "2026-06-17", "price": 5680},
+        {"date": "2026-06-18", "price": 5650}
+      ]
+    },
+    {
+      "id": "methanol",
+      "name": "甲醇",
+      "category": "化工",
+      "unit": "元/吨",
+      "price": 2680,
+      "prev_close": 2700,
+      "week_ago": 2720,
+      "month_ago": 2750,
+      "quarter_ago": 2650,
+      "year_ago": 2400,
+      "source": "郑商所主力·自动",
+      "pe_stock": "华鲁恒升/宝丰能源",
+      "contract": "MA509",
+      "exchange": "CZCE",
+      "prices": [
+        {"date": "2025-01", "price": 2400},
+        {"date": "2025-06", "price": 2550},
+        {"date": "2026-01", "price": 2650},
+        {"date": "2026-03", "price": 2750},
+        {"date": "2026-04", "price": 2700},
+        {"date": "2026-05", "price": 2680},
+        {"date": "2026-06-10", "price": 2720},
+        {"date": "2026-06-17", "price": 2700},
+        {"date": "2026-06-18", "price": 2680}
+      ]
+    },
+    {
+      "id": "eg",
+      "name": "乙二醇 (EG)",
+      "category": "化工",
+      "unit": "元/吨",
+      "price": 4250,
+      "prev_close": 4270,
+      "week_ago": 4300,
+      "month_ago": 4400,
+      "quarter_ago": 4500,
+      "year_ago": 4300,
+      "source": "大商所主力·自动",
+      "pe_stock": "卫星化学/恒力石化",
+      "contract": "eg2509",
+      "exchange": "DCE",
+      "prices": [
+        {"date": "2025-01", "price": 4300},
+        {"date": "2025-06", "price": 4350},
+        {"date": "2026-01", "price": 4500},
+        {"date": "2026-03", "price": 4400},
+        {"date": "2026-04", "price": 4350},
+        {"date": "2026-05", "price": 4300},
+        {"date": "2026-06-10", "price": 4300},
+        {"date": "2026-06-17", "price": 4270},
+        {"date": "2026-06-18", "price": 4250}
+      ]
+    },
+    {
+      "id": "pvc",
+      "name": "PVC",
+      "category": "化工",
+      "unit": "元/吨",
+      "price": 5320,
+      "prev_close": 5350,
+      "week_ago": 5400,
+      "month_ago": 5500,
+      "quarter_ago": 5600,
+      "year_ago": 5300,
+      "source": "大商所主力·自动",
+      "pe_stock": "中泰化学/君正集团",
+      "contract": "v2509",
+      "exchange": "DCE",
+      "prices": [
+        {"date": "2025-01", "price": 5300},
+        {"date": "2025-06", "price": 5400},
+        {"date": "2026-01", "price": 5600},
+        {"date": "2026-03", "price": 5500},
+        {"date": "2026-04", "price": 5450},
+        {"date": "2026-05", "price": 5400},
+        {"date": "2026-06-10", "price": 5400},
+        {"date": "2026-06-17", "price": 5350},
+        {"date": "2026-06-18", "price": 5320}
+      ]
+    },
+    {
+      "id": "pp",
+      "name": "PP (聚丙烯)",
+      "category": "化工",
+      "unit": "元/吨",
+      "price": 7280,
+      "prev_close": 7300,
+      "week_ago": 7350,
+      "month_ago": 7450,
+      "quarter_ago": 7500,
+      "year_ago": 7200,
+      "source": "大商所主力·自动",
+      "pe_stock": "上海石化/中化国际",
+      "contract": "pp2509",
+      "exchange": "DCE",
+      "prices": [
+        {"date": "2025-01", "price": 7200},
+        {"date": "2025-06", "price": 7300},
+        {"date": "2026-01", "price": 7500},
+        {"date": "2026-03", "price": 7450},
+        {"date": "2026-04", "price": 7400},
+        {"date": "2026-05", "price": 7350},
+        {"date": "2026-06-10", "price": 7350},
+        {"date": "2026-06-17", "price": 7300},
+        {"date": "2026-06-18", "price": 7280}
+      ]
+    },
+    {
+      "id": "styrene",
+      "name": "苯乙烯 (EB)",
+      "category": "化工",
+      "unit": "元/吨",
+      "price": 8450,
+      "prev_close": 8480,
+      "week_ago": 8550,
+      "month_ago": 8700,
+      "quarter_ago": 8800,
+      "year_ago": 8500,
+      "source": "大商所主力·自动",
+      "pe_stock": "中国石化/万华化学",
+      "contract": "eb2509",
+      "exchange": "DCE",
+      "prices": [
+        {"date": "2025-01", "price": 8500},
+        {"date": "2025-06", "price": 8600},
+        {"date": "2026-01", "price": 8800},
+        {"date": "2026-03", "price": 8700},
+        {"date": "2026-04", "price": 8650},
+        {"date": "2026-05", "price": 8550},
+        {"date": "2026-06-10", "price": 8550},
+        {"date": "2026-06-17", "price": 8480},
+        {"date": "2026-06-18", "price": 8450}
+      ]
+    },
+    {
+      "id": "soda_ash",
+      "name": "纯碱",
+      "category": "化工",
+      "unit": "元/吨",
+      "price": 1680,
+      "prev_close": 1695,
+      "week_ago": 1720,
+      "month_ago": 1750,
+      "quarter_ago": 1800,
+      "year_ago": 1900,
+      "source": "郑商所主力·自动",
+      "pe_stock": "远兴能源/中盐化工",
+      "contract": "SA509",
+      "exchange": "CZCE",
+      "prices": [
+        {"date": "2025-01", "price": 1900},
+        {"date": "2025-06", "price": 1850},
+        {"date": "2026-01", "price": 1800},
+        {"date": "2026-03", "price": 1750},
+        {"date": "2026-04", "price": 1720},
+        {"date": "2026-05", "price": 1700},
+        {"date": "2026-06-10", "price": 1720},
+        {"date": "2026-06-17", "price": 1695},
+        {"date": "2026-06-18", "price": 1680}
+      ]
+    },
+    {
+      "id": "lpg",
+      "name": "LPG (液化气)",
+      "category": "能源",
+      "unit": "元/吨",
+      "price": 4550,
+      "prev_close": 4570,
+      "week_ago": 4600,
+      "month_ago": 4680,
+      "quarter_ago": 4750,
+      "year_ago": 4600,
+      "source": "大商所主力·自动",
+      "pe_stock": "东华能源/中化国际",
+      "contract": "pg2509",
+      "exchange": "DCE",
+      "prices": [
+        {"date": "2025-01", "price": 4600},
+        {"date": "2025-06", "price": 4650},
+        {"date": "2026-01", "price": 4750},
+        {"date": "2026-03", "price": 4680},
+        {"date": "2026-04", "price": 4650},
+        {"date": "2026-05", "price": 4600},
+        {"date": "2026-06-10", "price": 4600},
+        {"date": "2026-06-17", "price": 4570},
+        {"date": "2026-06-18", "price": 4550}
+      ]
+    },
+    {
+      "id": "urea",
+      "name": "尿素",
+      "category": "化工",
+      "unit": "元/吨",
+      "price": 1980,
+      "prev_close": 1995,
+      "week_ago": 2020,
+      "month_ago": 2050,
+      "quarter_ago": 2100,
+      "year_ago": 2200,
+      "source": "郑商所主力·自动",
+      "pe_stock": "华鲁恒升/四川美丰",
+      "contract": "UR509",
+      "exchange": "CZCE",
+      "prices": [
+        {"date": "2025-01", "price": 2200},
+        {"date": "2025-06", "price": 2150},
+        {"date": "2026-01", "price": 2100},
+        {"date": "2026-03", "price": 2050},
+        {"date": "2026-04", "price": 2000},
+        {"date": "2026-05", "price": 1980},
+        {"date": "2026-06-10", "price": 2020},
+        {"date": "2026-06-17", "price": 1995},
+        {"date": "2026-06-18", "price": 1980}
+      ]
+    },
+    {"id": "wf6_6n",
       "name": "六氟化钨 (6N)",
       "category": "电子特气",
       "unit": "万元/吨",
-      "price": 380,
+      "price": 420,
       "prev_close": 380,
       "week_ago": 375,
       "month_ago": 120,
       "quarter_ago": 47,
       "year_ago": 47,
-      "source": "百川盈孚",
+      "source": "百川盈孚·手动",
       "pe_stock": "中船特气(688146)",
       "prices": [
-        {
-          "date": "2024-01",
-          "price": 42
-        },
-        {
-          "date": "2024-06",
-          "price": 43
-        },
-        {
-          "date": "2025-01",
-          "price": 47
-        },
-        {
-          "date": "2025-06",
-          "price": 55
-        },
-        {
-          "date": "2025-09",
-          "price": 70
-        },
-        {
-          "date": "2025-11",
-          "price": 90
-        },
-        {
-          "date": "2026-01",
-          "price": 75
-        },
-        {
-          "date": "2026-03",
-          "price": 120
-        },
-        {
-          "date": "2026-04",
-          "price": 160
-        },
-        {
-          "date": "2026-05",
-          "price": 260
-        },
-        {
-          "date": "2026-06-15",
-          "price": 380
-        },
-        {
-          "date": "2026-06-18",
-          "price": 420
-        }
-      ]
-    },
-    {
-      "id": "nf3",
+        {"date": "2024-01", "price": 42},{"date": "2024-06", "price": 43},
+        {"date": "2025-01", "price": 47},{"date": "2025-06", "price": 55},
+        {"date": "2025-09", "price": 70},{"date": "2025-11", "price": 90},
+        {"date": "2026-01", "price": 75},{"date": "2026-03", "price": 120},
+        {"date": "2026-04", "price": 160},{"date": "2026-05", "price": 260},
+        {"date": "2026-06-15", "price": 380},{"date": "2026-06-18", "price": 420}
+      ]},
+    {"id": "nf3",
       "name": "三氟化氮 (NF₃)",
       "category": "电子特气",
       "unit": "万元/吨",
@@ -77,57 +705,17 @@
       "month_ago": 25,
       "quarter_ago": 19,
       "year_ago": 18,
-      "source": "百川盈孚",
+      "source": "百川盈孚·手动",
       "pe_stock": "中船特气(688146)",
       "prices": [
-        {
-          "date": "2024-01",
-          "price": 17
-        },
-        {
-          "date": "2024-06",
-          "price": 17
-        },
-        {
-          "date": "2025-01",
-          "price": 18
-        },
-        {
-          "date": "2025-06",
-          "price": 19
-        },
-        {
-          "date": "2025-09",
-          "price": 20
-        },
-        {
-          "date": "2026-01",
-          "price": 20
-        },
-        {
-          "date": "2026-03",
-          "price": 25
-        },
-        {
-          "date": "2026-04",
-          "price": 28
-        },
-        {
-          "date": "2026-05",
-          "price": 35
-        },
-        {
-          "date": "2026-06-10",
-          "price": 40
-        },
-        {
-          "date": "2026-06-18",
-          "price": 42
-        }
-      ]
-    },
-    {
-      "id": "helium_6n",
+        {"date": "2024-01", "price": 17},{"date": "2024-06", "price": 17},
+        {"date": "2025-01", "price": 18},{"date": "2025-06", "price": 19},
+        {"date": "2025-09", "price": 20},{"date": "2026-01", "price": 20},
+        {"date": "2026-03", "price": 25},{"date": "2026-04", "price": 28},
+        {"date": "2026-05", "price": 35},{"date": "2026-06-10", "price": 40},
+        {"date": "2026-06-18", "price": 42}
+      ]},
+    {"id": "helium_6n",
       "name": "6N氦气 (99.9999%)",
       "category": "电子特气",
       "unit": "元/立方米",
@@ -137,373 +725,17 @@
       "month_ago": 1500,
       "quarter_ago": 600,
       "year_ago": 600,
-      "source": "隆众资讯",
+      "source": "隆众资讯·手动",
       "pe_stock": "华特气体(688268)",
       "prices": [
-        {
-          "date": "2024-01",
-          "price": 520
-        },
-        {
-          "date": "2024-06",
-          "price": 580
-        },
-        {
-          "date": "2025-01",
-          "price": 600
-        },
-        {
-          "date": "2025-06",
-          "price": 580
-        },
-        {
-          "date": "2026-01",
-          "price": 600
-        },
-        {
-          "date": "2026-03",
-          "price": 800
-        },
-        {
-          "date": "2026-04",
-          "price": 1500
-        },
-        {
-          "date": "2026-05",
-          "price": 2500
-        },
-        {
-          "date": "2026-06-10",
-          "price": 3800
-        },
-        {
-          "date": "2026-06-15",
-          "price": 4000
-        },
-        {
-          "date": "2026-06-18",
-          "price": 4300
-        }
-      ]
-    },
-    {
-      "id": "lithium_carbonate",
-      "name": "碳酸锂 (电池级)",
-      "category": "锂矿",
-      "unit": "万元/吨",
-      "price": 2706.0,
-      "prev_close": 16.9,
-      "week_ago": 17.5,
-      "month_ago": 12.5,
-      "quarter_ago": 7.5,
-      "year_ago": 7.5,
-      "source": "广期所主力合约",
-      "pe_stock": "西藏矿业(000762)/天齐锂业(002466)",
-      "prices": [
-        {
-          "date": "2024-01",
-          "price": 9.5
-        },
-        {
-          "date": "2024-06",
-          "price": 10.5
-        },
-        {
-          "date": "2025-01",
-          "price": 7.5
-        },
-        {
-          "date": "2025-06",
-          "price": 9.5
-        },
-        {
-          "date": "2025-09",
-          "price": 7.5
-        },
-        {
-          "date": "2025-12",
-          "price": 7.8
-        },
-        {
-          "date": "2026-01",
-          "price": 8.5
-        },
-        {
-          "date": "2026-03",
-          "price": 12.5
-        },
-        {
-          "date": "2026-04",
-          "price": 15.0
-        },
-        {
-          "date": "2026-05-13",
-          "price": 20.9
-        },
-        {
-          "date": "2026-06-01",
-          "price": 18.2
-        },
-        {
-          "date": "2026-06-10",
-          "price": 16.5
-        },
-        {
-          "date": "2026-06-17",
-          "price": 16.9
-        },
-        {
-          "date": "2026-06-18",
-          "price": 2706.0
-        }
-      ]
-    },
-    {
-      "id": "tungsten",
-      "name": "钨精矿 (WO₃≥65%)",
-      "category": "小金属",
-      "unit": "万元/吨",
-      "price": 18.5,
-      "prev_close": 18.3,
-      "week_ago": 18.0,
-      "month_ago": 17.5,
-      "quarter_ago": 14.5,
-      "year_ago": 12.0,
-      "source": "生意社",
-      "pe_stock": "中钨高新/章源钨业",
-      "prices": [
-        {
-          "date": "2024-01",
-          "price": 12.5
-        },
-        {
-          "date": "2024-06",
-          "price": 14.0
-        },
-        {
-          "date": "2025-01",
-          "price": 12.0
-        },
-        {
-          "date": "2025-06",
-          "price": 15.0
-        },
-        {
-          "date": "2025-09",
-          "price": 16.5
-        },
-        {
-          "date": "2026-01",
-          "price": 14.5
-        },
-        {
-          "date": "2026-03",
-          "price": 17.5
-        },
-        {
-          "date": "2026-04",
-          "price": 18.2
-        },
-        {
-          "date": "2026-05",
-          "price": 18.0
-        },
-        {
-          "date": "2026-06-10",
-          "price": 18.3
-        },
-        {
-          "date": "2026-06-18",
-          "price": 18.5
-        }
-      ]
-    },
-    {
-      "id": "copper",
-      "name": "电解铜 (阴极铜)",
-      "category": "基本金属",
-      "unit": "万元/吨",
-      "price": 7.82,
-      "prev_close": 7.85,
-      "week_ago": 7.9,
-      "month_ago": 8.1,
-      "quarter_ago": 7.5,
-      "year_ago": 7.8,
-      "source": "上期所主力合约",
-      "pe_stock": "紫金矿业/江西铜业",
-      "prices": [
-        {
-          "date": "2024-01",
-          "price": 6.9
-        },
-        {
-          "date": "2024-06",
-          "price": 7.8
-        },
-        {
-          "date": "2025-01",
-          "price": 7.8
-        },
-        {
-          "date": "2025-06",
-          "price": 8.2
-        },
-        {
-          "date": "2025-09",
-          "price": 7.4
-        },
-        {
-          "date": "2026-01",
-          "price": 7.5
-        },
-        {
-          "date": "2026-03",
-          "price": 8.1
-        },
-        {
-          "date": "2026-04",
-          "price": 8.3
-        },
-        {
-          "date": "2026-05",
-          "price": 8.1
-        },
-        {
-          "date": "2026-06-10",
-          "price": 7.9
-        },
-        {
-          "date": "2026-06-17",
-          "price": 7.85
-        },
-        {
-          "date": "2026-06-18",
-          "price": 7.82
-        }
-      ]
-    },
-    {
-      "id": "aluminum",
-      "name": "A00铝 (电解铝)",
-      "category": "基本金属",
-      "unit": "万元/吨",
-      "price": 2.04,
-      "prev_close": 2.05,
-      "week_ago": 2.06,
-      "month_ago": 2.1,
-      "quarter_ago": 2.05,
-      "year_ago": 2.02,
-      "source": "上期所主力合约",
-      "pe_stock": "中国铝业/南山铝业",
-      "prices": [
-        {
-          "date": "2024-01",
-          "price": 1.9
-        },
-        {
-          "date": "2024-06",
-          "price": 2.05
-        },
-        {
-          "date": "2025-01",
-          "price": 2.02
-        },
-        {
-          "date": "2025-06",
-          "price": 2.08
-        },
-        {
-          "date": "2025-09",
-          "price": 1.95
-        },
-        {
-          "date": "2026-01",
-          "price": 2.05
-        },
-        {
-          "date": "2026-03",
-          "price": 2.1
-        },
-        {
-          "date": "2026-04",
-          "price": 2.08
-        },
-        {
-          "date": "2026-05",
-          "price": 2.06
-        },
-        {
-          "date": "2026-06-10",
-          "price": 2.05
-        },
-        {
-          "date": "2026-06-18",
-          "price": 2.04
-        }
-      ]
-    },
-    {
-      "id": "anhydrous_hf",
-      "name": "无水氟化氢 (AHF)",
-      "category": "氟化工",
-      "unit": "元/吨",
-      "price": 12500,
-      "prev_close": 12400,
-      "week_ago": 12200,
-      "month_ago": 11800,
-      "quarter_ago": 10500,
-      "year_ago": 9500,
-      "source": "百川盈孚",
-      "pe_stock": "巨化股份/多氟多",
-      "prices": [
-        {
-          "date": "2024-01",
-          "price": 10100
-        },
-        {
-          "date": "2024-06",
-          "price": 9800
-        },
-        {
-          "date": "2025-01",
-          "price": 9500
-        },
-        {
-          "date": "2025-06",
-          "price": 10200
-        },
-        {
-          "date": "2025-09",
-          "price": 9800
-        },
-        {
-          "date": "2026-01",
-          "price": 10500
-        },
-        {
-          "date": "2026-03",
-          "price": 10800
-        },
-        {
-          "date": "2026-04",
-          "price": 11800
-        },
-        {
-          "date": "2026-05",
-          "price": 12200
-        },
-        {
-          "date": "2026-06-10",
-          "price": 12300
-        },
-        {
-          "date": "2026-06-18",
-          "price": 12500
-        }
-      ]
-    },
-    {
-      "id": "silane",
+        {"date": "2024-01", "price": 520},{"date": "2024-06", "price": 580},
+        {"date": "2025-01", "price": 600},{"date": "2025-06", "price": 580},
+        {"date": "2026-01", "price": 600},{"date": "2026-03", "price": 800},
+        {"date": "2026-04", "price": 1500},{"date": "2026-05", "price": 2500},
+        {"date": "2026-06-10", "price": 3800},{"date": "2026-06-15", "price": 4000},
+        {"date": "2026-06-18", "price": 4300}
+      ]},
+    {"id": "silane",
       "name": "硅烷 (电子级)",
       "category": "电子特气",
       "unit": "万元/吨",
@@ -513,50 +745,94 @@
       "month_ago": 26,
       "quarter_ago": 24,
       "year_ago": 22,
-      "source": "百川盈孚",
-      "pe_stock": "金宏气体(688106)/兴发集团",
+      "source": "百川盈孚·手动",
+      "pe_stock": "金宏气体(688106)",
       "prices": [
-        {
-          "date": "2024-01",
-          "price": 20
-        },
-        {
-          "date": "2024-06",
-          "price": 21
-        },
-        {
-          "date": "2025-01",
-          "price": 22
-        },
-        {
-          "date": "2025-06",
-          "price": 23
-        },
-        {
-          "date": "2026-01",
-          "price": 24
-        },
-        {
-          "date": "2026-03",
-          "price": 26
-        },
-        {
-          "date": "2026-04",
-          "price": 27
-        },
-        {
-          "date": "2026-05",
-          "price": 28
-        },
-        {
-          "date": "2026-06-10",
-          "price": 28
-        },
-        {
-          "date": "2026-06-18",
-          "price": 28
-        }
-      ]
-    }
+        {"date": "2025-01", "price": 22},{"date": "2025-06", "price": 23},
+        {"date": "2026-01", "price": 24},{"date": "2026-03", "price": 26},
+        {"date": "2026-04", "price": 27},{"date": "2026-05", "price": 28},
+        {"date": "2026-06-18", "price": 28}
+      ]},
+    {"id": "tungsten",
+      "name": "钨精矿 (WO₃≥65%)",
+      "category": "小金属",
+      "unit": "万元/吨",
+      "price": 18.5,
+      "prev_close": 18.3,
+      "week_ago": 18.0,
+      "month_ago": 17.5,
+      "quarter_ago": 14.5,
+      "year_ago": 12.0,
+      "source": "生意社·手动",
+      "pe_stock": "中钨高新/章源钨业",
+      "prices": [
+        {"date": "2024-01", "price": 12.5},{"date": "2024-06", "price": 14.0},
+        {"date": "2025-01", "price": 12.0},{"date": "2025-06", "price": 15.0},
+        {"date": "2025-09", "price": 16.5},{"date": "2026-01", "price": 14.5},
+        {"date": "2026-03", "price": 17.5},{"date": "2026-04", "price": 18.2},
+        {"date": "2026-05", "price": 18.0},{"date": "2026-06-10", "price": 18.3},
+        {"date": "2026-06-18", "price": 18.5}
+      ]},
+    {"id": "anhydrous_hf",
+      "name": "无水氟化氢 (AHF)",
+      "category": "氟化工",
+      "unit": "元/吨",
+      "price": 12500,
+      "prev_close": 12400,
+      "week_ago": 12200,
+      "month_ago": 11800,
+      "quarter_ago": 10500,
+      "year_ago": 9500,
+      "source": "百川盈孚·手动",
+      "pe_stock": "巨化股份/多氟多",
+      "prices": [
+        {"date": "2024-01", "price": 10100},{"date": "2025-01", "price": 9500},
+        {"date": "2025-06", "price": 10200},{"date": "2026-01", "price": 10500},
+        {"date": "2026-03", "price": 10800},{"date": "2026-04", "price": 11800},
+        {"date": "2026-05", "price": 12200},{"date": "2026-06-10", "price": 12300},
+        {"date": "2026-06-18", "price": 12500}
+      ]},
+    {"id": "fluorspar",
+      "name": "萤石 (97%酸式)",
+      "category": "氟化工",
+      "unit": "元/吨",
+      "price": 3750,
+      "prev_close": 3730,
+      "week_ago": 3700,
+      "month_ago": 3600,
+      "quarter_ago": 3500,
+      "year_ago": 3400,
+      "source": "百川盈孚·手动",
+      "pe_stock": "金石资源/巨化股份",
+      "prices": [
+        {"date": "2025-01", "price": 3400},{"date": "2025-06", "price": 3450},
+        {"date": "2026-01", "price": 3500},{"date": "2026-03", "price": 3600},
+        {"date": "2026-04", "price": 3650},{"date": "2026-05", "price": 3700},
+        {"date": "2026-06-10", "price": 3700},{"date": "2026-06-18", "price": 3750}
+      ]}
+  ],
+  "news": [
+    {"date": "2026-06-18", "source": "生意社", "title": "6月18日国内商品期货主力合约价格全线下跌，黑色系领跌", "url": "https://www.100ppi.com/data/detail-20260618-1229379.html", "tags": ["黑色","化工"]},
+    {"date": "2026-06-17", "source": "隆众资讯", "title": "6N氦气现货价格突破4300元/m³，半导体企业库存告急", "url": "", "tags": ["电子特气","氦气"]},
+    {"date": "2026-06-15", "source": "百川盈孚", "title": "六氟化钨(6N)价格升至420万元/吨，日本关东电化7月起永久关停产线", "url": "", "tags": ["电子特气","WF₆"]},
+    {"date": "2026-06-13", "source": "中信证券", "title": "日本三氟化氮断供持续发酵，中船特气承接海外订单600-800吨/年", "url": "", "tags": ["电子特气","NF₃"]},
+    {"date": "2026-06-10", "source": "SMM", "title": "碳酸锂现货报价16.5万元/吨，储能电池排产环比+6%", "url": "", "tags": ["新能源","碳酸锂"]},
+    {"date": "2026-06-08", "source": "上期所", "title": "铜库存连续三周下降，沪铜持仓维持高位146,280手", "url": "", "tags": ["基本金属","铜"]},
+    {"date": "2026-06-04", "source": "21世纪经济报道", "title": "六氟化钨2个月暴涨4倍，中船特气股价创新高", "url": "https://www.21jingji.com/article/20260604/herald/def7dc30fe1d47163d23dc52302b0677.html", "tags": ["电子特气","WF₆","中船特气"]},
+    {"date": "2026-06-03", "source": "海关总署", "title": "6N氦气出口均价环比+203.8%，供需缺口创历史新高", "url": "", "tags": ["电子特气","氦气","出口"]},
+    {"date": "2026-05-28", "source": "华泰证券", "title": "半导体扩产加速，电子气体市场2026年有望+8%至68亿美元", "url": "", "tags": ["电子特气","半导体"]},
+    {"date": "2026-05-25", "source": "SMM", "title": "钨精矿涨至18万元/吨，中国钨出口管制持续收紧", "url": "", "tags": ["小金属","钨","出口管制"]},
+    {"date": "2026-05-20", "source": "IEA", "title": "全球数据中心电力需求2030年将达950TWh，储能锂需求新增17万吨LCE", "url": "", "tags": ["储能","锂","数据中心"]},
+    {"date": "2026-05-15", "source": "广期所", "title": "碳酸锂主力合约盘中触及209,880元/吨创年内新高", "url": "", "tags": ["新能源","碳酸锂","锂矿"]},
+    {"date": "2026-05-10", "source": "隆众资讯", "title": "卡塔尔Ras Laffan氦气装置遭袭后续:修复或需3-5年", "url": "", "tags": ["氦气","地缘政治"]},
+    {"date": "2026-05-06", "source": "钢联数据", "title": "国产管束高纯氦气近一月涨幅490%，进口涨370%", "url": "", "tags": ["氦气","涨价"]},
+    {"date": "2026-04-27", "source": "中信证券", "title": "日本六氟化钨和三氟化氮断供引爆涨价潮，国内厂商出海业务有望加速", "url": "", "tags": ["电子特气","WF₆","NF₃","日本"]},
+    {"date": "2026-04-22", "source": "俄罗斯政府", "title": "俄罗斯宣布氦气临时出口管制至2027年底，对亚洲配额压缩至40%", "url": "", "tags": ["氦气","俄罗斯","出口管制"]},
+    {"date": "2026-04-15", "source": "西藏矿业公告", "title": "扎布耶二期月产碳酸锂仅200吨，产能爬坡低于预期", "url": "", "tags": ["碳酸锂","西藏矿业"]},
+    {"date": "2026-04-09", "source": "商务部", "title": "对日本二氯二硅反倾销立案调查，国产电子特气份额与盈利双升预期", "url": "", "tags": ["电子特气","反倾销","国产替代"]},
+    {"date": "2026-04-01", "source": "三井化学", "title": "三井化学正式退出NF₃业务，1,700吨产能永久关停", "url": "", "tags": ["NF₃","日本","供给退出"]},
+    {"date": "2026-03-12", "source": "SEMI", "title": "2026年全球半导体设备支出1340亿美元，NAND +30%、DRAM +12%", "url": "", "tags": ["半导体","Capex","全球"]},
+    {"date": "2026-02-28", "source": "路透社", "title": "卡塔尔Ras Laffan工业城遭导弹袭击，全球34%氦气产能停摆", "url": "", "tags": ["氦气","卡塔尔","地缘政治"]},
+    {"date": "2026-01-15", "source": "工信部", "title": "2030年电子特气国产化率目标>70%，政策支持力度加大", "url": "", "tags": ["电子特气","国产替代","政策"]}
   ]
 }

@@ -7,234 +7,178 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --bg: #0f172a;
-    --card: #1e293b;
-    --card-hover: #273549;
-    --border: #334155;
-    --text: #f1f5f9;
-    --text-dim: #94a3b8;
-    --red: #ef4444;
-    --red-bg: rgba(239,68,68,0.12);
-    --green: #22c55e;
-    --green-bg: rgba(34,197,94,0.12);
-    --orange: #f59e0b;
-    --accent: #3b82f6;
-    --accent-dim: rgba(59,130,246,0.15);
+    --bg: #0f172a; --card: #1e293b; --card-hover: #273549;
+    --border: #334155; --text: #f1f5f9; --text-dim: #94a3b8;
+    --red: #ef4444; --red-bg: rgba(239,68,68,0.12);
+    --green: #22c55e; --green-bg: rgba(34,197,94,0.12);
+    --orange: #f59e0b; --accent: #3b82f6; --accent-dim: rgba(59,130,246,0.15);
+    --purple: #a855f7;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: -apple-system, "Microsoft YaHei", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    padding: 0;
-    min-height: 100vh;
+    font-family: -apple-system,"Microsoft YaHei",sans-serif;
+    background: var(--bg); color: var(--text);
+    padding: 0; min-height: 100vh;
   }
-  .container { max-width: 1240px; margin: 0 auto; padding: 20px 16px 80px; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 16px 16px 60px; }
 
   /* HEADER */
   .header {
     display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 12px;
-    padding: 16px 0 20px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 24px;
+    flex-wrap: wrap; gap: 10px;
+    padding: 12px 0 16px; border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
   }
   .header h1 {
-    font-size: 1.5em; font-weight: 700;
-    background: linear-gradient(90deg, #3b82f6, #a855f7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 1.4em; font-weight: 700;
+    background: linear-gradient(90deg,#3b82f6,#a855f7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   .header-right {
-    font-size: 0.82em; color: var(--text-dim);
-    display: flex; align-items: center; gap: 12px;
+    font-size: 0.8em; color: var(--text-dim);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   }
-  .header-right .dot {
-    display: inline-block; width: 8px; height: 8px;
-    background: var(--green); border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
+  .dot { display:inline-block; width:8px; height:8px; background:var(--green); border-radius:50%; animation:pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  .badge-manual {
-    background: var(--accent-dim); color: var(--accent);
-    padding: 2px 10px; border-radius: 12px; font-size: 0.75em;
+  .badge-auto { background:var(--green-bg); color:var(--green); padding:2px 8px; border-radius:10px; font-size:0.72em; white-space:nowrap; }
+  .badge-manual { background:var(--accent-dim); color:var(--accent); padding:2px 8px; border-radius:10px; font-size:0.72em; white-space:nowrap; }
+  #refreshBtn {
+    background:var(--accent); color:#fff; border:none; border-radius:6px;
+    padding:4px 12px; cursor:pointer; font-size:0.8em; white-space:nowrap;
   }
-  .badge-auto {
-    background: var(--green-bg); color: var(--green);
-    padding: 2px 10px; border-radius: 12px; font-size: 0.75em;
-  }
-
-  /* CATEGORY FILTER */
-  .filter-bar {
-    display: flex; flex-wrap: wrap; gap: 8px;
-    margin-bottom: 20px;
-  }
-  .filter-btn {
-    padding: 6px 16px; border-radius: 20px;
-    background: transparent; color: var(--text-dim);
-    border: 1px solid var(--border); cursor: pointer;
-    font-size: 0.85em; transition: all 0.2s;
-  }
-  .filter-btn:hover { background: var(--card-hover); }
-  .filter-btn.active {
-    background: var(--accent); color: #fff; border-color: var(--accent);
-  }
+  #refreshBtn:hover { opacity:0.85; }
 
   /* STATS ROW */
   .stats-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px; margin-bottom: 24px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 8px; margin-bottom: 14px;
   }
   .stat-card {
-    background: var(--card); border-radius: 10px;
-    padding: 14px; text-align: center;
-    border: 1px solid var(--border);
+    background:var(--card); border-radius:8px; padding:10px 8px; text-align:center;
+    border:1px solid var(--border);
   }
-  .stat-count { font-size: 1.5em; font-weight: 700; }
-  .stat-label { font-size: 0.75em; color: var(--text-dim); margin-top: 2px; }
-  .stat-up .stat-count { color: var(--red); }
-  .stat-down .stat-count { color: var(--green); }
+  .stat-count { font-size:1.2em; font-weight:700; }
+  .stat-label { font-size:0.68em; color:var(--text-dim); margin-top:2px; }
+  .stat-up .stat-count { color:var(--red); }
+  .stat-down .stat-count { color:var(--green); }
 
-  /* CARD GRID */
+  /* FILTER */
+  .filter-bar {
+    display: flex; flex-wrap: wrap; gap: 5px;
+    margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px;
+  }
+  .filter-btn {
+    padding:4px 12px; border-radius:16px;
+    background:transparent; color:var(--text-dim);
+    border:1px solid var(--border); cursor:pointer;
+    font-size:0.78em; transition:all 0.15s; white-space:nowrap;
+  }
+  .filter-btn:hover { background:var(--card-hover); }
+  .filter-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+  /* SECTION TABS */
+  .section-tabs {
+    display: flex; gap: 2px; margin-bottom: 14px;
+    background: var(--card); border-radius: 10px; padding: 3px;
+    border: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .section-tab {
+    padding: 7px 18px; border-radius: 8px;
+    background: transparent; color: var(--text-dim);
+    border: none; cursor: pointer; font-size: 0.85em;
+    transition: all 0.15s; white-space: nowrap;
+  }
+  .section-tab:hover { color: var(--text); }
+  .section-tab.active { background: var(--accent-dim); color: var(--accent); font-weight: 600; }
+
+  /* ===== PRICE CARDS ===== */
   .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
   }
   .card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 18px;
-    border: 1px solid var(--border);
-    transition: all 0.2s;
-    cursor: default;
+    background:var(--card); border-radius:10px; padding:14px 16px;
+    border:1px solid var(--border); cursor:default;
+    transition:all 0.15s;
   }
-  .card:hover {
-    background: var(--card-hover);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-  }
-  .card-top {
-    display: flex; justify-content: space-between; align-items: start;
-    margin-bottom: 8px;
-  }
-  .card-cat {
-    font-size: 0.7em; color: var(--text-dim);
-    padding: 2px 8px; border-radius: 8px;
-    background: var(--accent-dim);
-  }
-  .card-name {
-    font-size: 1.05em; font-weight: 700;
-    margin-bottom: 2px;
-  }
-  .card-sub {
-    font-size: 0.78em; color: var(--text-dim);
-    margin-bottom: 10px;
-  }
-  .card-price-row {
-    display: flex; align-items: baseline; gap: 10px;
-    margin-bottom: 8px;
-  }
-  .card-price {
-    font-size: 1.6em; font-weight: 700;
-  }
-  .card-unit {
-    font-size: 0.8em; color: var(--text-dim);
-  }
-  .card-changes {
-    display: flex; gap: 6px; flex-wrap: wrap;
-    margin-bottom: 10px;
-  }
-  .change-badge {
-    padding: 2px 8px; border-radius: 6px;
-    font-size: 0.75em; font-weight: 600;
-  }
-  .change-badge.up { background: var(--red-bg); color: var(--red); }
-  .change-badge.down { background: var(--green-bg); color: var(--green); }
-  .change-badge.flat { background: rgba(148,163,184,0.15); color: var(--text-dim); }
+  .card:hover { background:var(--card-hover); border-color:var(--accent); transform:translateY(-1px); }
+  .card-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+  .card-cat { font-size:0.65em; color:var(--text-dim); padding:1px 8px; border-radius:6px; background:var(--accent-dim); }
+  .card-name { font-size:1em; font-weight:700; }
+  .card-price-row { display:flex; align-items:baseline; gap:6px; margin:4px 0; }
+  .card-price { font-size:1.4em; font-weight:700; }
+  .card-unit { font-size:0.75em; color:var(--text-dim); }
+  .card-changes { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:4px; }
+  .change-badge { padding:1px 7px; border-radius:5px; font-size:0.7em; font-weight:600; }
+  .change-badge.up { background:var(--red-bg); color:var(--red); }
+  .change-badge.down { background:var(--green-bg); color:var(--green); }
+  .change-badge.flat { background:rgba(148,163,184,0.15); color:var(--text-dim); }
+  .card-stock { font-size:0.72em; color:var(--accent); }
+  .card-footer { display:flex; justify-content:space-between; align-items:center; margin-top:6px; border-top:1px solid var(--border); padding-top:6px; }
+  .card-source { font-size:0.65em; color:var(--text-dim); }
+  .card-arrow { font-size:0.85em; }
 
-  .card-stock {
-    font-size: 0.78em; color: var(--accent);
-    margin-top: 8px;
-  }
-  .card-source {
-    font-size: 0.7em; color: var(--text-dim);
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: 6px;
-  }
-
-  /* CHART AREA */
-  .chart-section {
-    margin-top: 32px;
-  }
-  .chart-tabs {
-    display: flex; gap: 8px;
-    margin-bottom: 14px; flex-wrap: wrap;
-  }
+  /* CHART */
+  .chart-section { margin-top:24px; }
+  .chart-tabs { display:flex; gap:4px; margin-bottom:10px; flex-wrap:wrap; }
   .chart-tab {
-    padding: 6px 14px; border-radius: 8px;
-    background: var(--card); color: var(--text-dim);
-    border: 1px solid var(--border); cursor: pointer;
-    font-size: 0.82em; transition: all 0.15s;
+    padding:5px 12px; border-radius:6px;
+    background:transparent; color:var(--text-dim);
+    border:1px solid var(--border); cursor:pointer;
+    font-size:0.78em; transition:all 0.1s;
   }
-  .chart-tab:hover { background: var(--card-hover); }
-  .chart-tab.active {
-    background: var(--accent); color: #fff; border-color: var(--accent);
-  }
-  .chart-box {
-    background: var(--card); border-radius: 12px;
-    padding: 20px; border: 1px solid var(--border);
-    height: 360px;
-    position: relative;
-  }
-  .chart-box canvas { width: 100% !important; height: 320px !important; }
-  .chart-empty {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--text-dim); font-size: 0.9em;
-  }
+  .chart-tab:hover { background:var(--card-hover); }
+  .chart-tab.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .chart-box { background:var(--card); border-radius:10px; padding:14px; border:1px solid var(--border); height:340px; position:relative; }
+  .chart-box canvas { width:100%!important; height:300px!important; }
+  .chart-empty { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--text-dim); font-size:0.85em; }
 
-  /* RANKING TABLE */
-  .rank-section { margin-top: 32px; }
-  .rank-table {
-    width: 100%; border-collapse: collapse;
-    font-size: 0.88em;
+  /* ===== NEWS ===== */
+  .news-list { list-style:none; }
+  .news-item {
+    padding:12px 14px; border-bottom:1px solid var(--border);
+    transition:all 0.1s;
   }
+  .news-item:last-child { border-bottom:none; }
+  .news-item:hover { background:var(--card-hover); }
+  .news-date { font-size:0.7em; color:var(--text-dim); margin-right:8px; white-space:nowrap; }
+  .news-source { font-size:0.7em; color:var(--accent); margin-right:8px; white-space:nowrap; }
+  .news-title { font-size:0.85em; flex:1; }
+  .news-tags { display:flex; gap:4px; flex-wrap:wrap; }
+  .news-tag {
+    font-size:0.65em; padding:1px 7px; border-radius:4px;
+    background:var(--accent-dim); color:var(--accent);
+  }
+  .news-title a { color:var(--text); text-decoration:none; }
+  .news-title a:hover { color:var(--accent); }
+
+  /* RANK TABLE */
+  .rank-section { margin-top:24px; }
+  .rank-table { width:100%; border-collapse:collapse; font-size:0.82em; }
   .rank-table thead th {
-    background: var(--card); color: var(--text-dim);
-    padding: 10px 12px; text-align: left;
-    font-weight: 600; font-size: 0.82em;
-    border-bottom: 2px solid var(--border);
+    background:var(--card); color:var(--text-dim); padding:8px 10px;
+    text-align:left; font-weight:600; font-size:0.75em;
+    border-bottom:2px solid var(--border);
   }
-  .rank-table tbody td {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
-  }
-  .rank-table tbody tr:hover { background: var(--card-hover); }
-  .rank-num { font-weight: 700; color: var(--text-dim); width: 32px; }
-  .rank-1st { color: #f59e0b; }
-  .rank-2nd { color: #94a3b8; }
-  .rank-3rd { color: #a1887f; }
-  .td-name { font-weight: 600; }
-  .td-price { font-weight: 600; text-align: right; }
-  .td-chg { text-align: right; }
-  .td-chg.up { color: var(--red); }
-  .td-chg.down { color: var(--green); }
+  .rank-table tbody td { padding:8px 10px; border-bottom:1px solid var(--border); }
+  .rank-table tbody tr:hover { background:var(--card-hover); }
+  .rank-num { font-weight:700; color:var(--text-dim); width:28px; }
 
   /* FOOTER */
-  .footer {
-    margin-top: 48px; padding: 20px 0;
-    text-align: center; border-top: 1px solid var(--border);
-    font-size: 0.78em; color: var(--text-dim);
+  .footer { margin-top:36px; padding:16px 0; text-align:center; border-top:1px solid var(--border); font-size:0.72em; color:var(--text-dim); }
+
+  /* RESPONSIVE */
+  @media (max-width:640px) {
+    .card-grid { grid-template-columns:1fr; }
+    .header h1 { font-size:1.15em; }
+    .news-item { flex-wrap:wrap; }
   }
 
-  @media (max-width: 640px) {
-    .card-grid { grid-template-columns: 1fr; }
-    .header h1 { font-size: 1.2em; }
-  }
+  .section-content { display:none; }
+  .section-content.active { display:block; }
 </style>
 </head>
 <body>
@@ -249,63 +193,73 @@
       <span id="updateTime">加载中...</span>
       <span class="badge-auto">期货自动</span>
       <span class="badge-manual">特气手动</span>
-      <button id="refreshBtn" style="background:var(--accent);color:#fff;border:none;border-radius:6px;padding:4px 12px;cursor:pointer;font-size:0.82em;">⟳ 刷新</button>
+      <button id="refreshBtn">⟳ 刷新</button>
     </div>
   </div>
 
-  <!-- FILTER -->
-  <div class="filter-bar" id="filterBar">
-    <button class="filter-btn active" data-filter="all">全部</button>
+  <!-- SECTION TABS -->
+  <div class="section-tabs" id="sectionTabs">
+    <button class="section-tab active" data-section="prices">📈 价格监控</button>
+    <button class="section-tab" data-section="news">📰 资讯摘要</button>
+    <button class="section-tab" data-section="ranking">🏆 涨幅排行</button>
   </div>
 
-  <!-- STATS -->
-  <div class="stats-row" id="statsRow">
-    <div class="stat-card stat-up">
-      <div class="stat-count" id="upCount">0</div>
-      <div class="stat-label">品种上涨</div>
+  <!-- ====== SECTION: PRICES ====== -->
+  <div class="section-content active" id="sectionPrices">
+
+    <!-- STATS -->
+    <div class="stats-row" id="statsRow">
+      <div class="stat-card stat-up"><div class="stat-count" id="upCount">0</div><div class="stat-label">月涨</div></div>
+      <div class="stat-card stat-down"><div class="stat-count" id="downCount">0</div><div class="stat-label">月跌</div></div>
+      <div class="stat-card"><div class="stat-count" id="hotCount">0</div><div class="stat-label">月涨>20%</div></div>
+      <div class="stat-card"><div class="stat-count" id="autoCount">0</div><div class="stat-label">自动</div></div>
+      <div class="stat-card"><div class="stat-count" id="manualCount">0</div><div class="stat-label">手动</div></div>
+      <div class="stat-card"><div class="stat-count" id="totalCount">0</div><div class="stat-label">总品种</div></div>
     </div>
-    <div class="stat-card stat-down">
-      <div class="stat-count" id="downCount">0</div>
-      <div class="stat-label">品种下跌</div>
+
+    <!-- FILTER -->
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">全部</button>
     </div>
-    <div class="stat-card">
-      <div class="stat-count" id="hotCount">0</div>
-      <div class="stat-label">月涨>20%</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-count" id="totalCount">0</div>
-      <div class="stat-label">追踪品种</div>
+
+    <!-- CARDS -->
+    <div class="card-grid" id="cardGrid"></div>
+
+    <!-- CHART -->
+    <div class="chart-section">
+      <div class="chart-tabs" id="chartTabs"></div>
+      <div class="chart-box">
+        <canvas id="priceChart"></canvas>
+        <div class="chart-empty" id="chartEmpty">👆 点击品种查看价格走势</div>
+      </div>
     </div>
   </div>
 
-  <!-- CARDS -->
-  <div class="card-grid" id="cardGrid"></div>
-
-  <!-- CHART -->
-  <div class="chart-section">
-    <div class="chart-tabs" id="chartTabs"></div>
-    <div class="chart-box">
-      <canvas id="priceChart"></canvas>
-      <div class="chart-empty" id="chartEmpty">👆 点击上方品种查看价格走势</div>
-    </div>
+  <!-- ====== SECTION: NEWS ====== -->
+  <div class="section-content" id="sectionNews">
+    <div id="newsList"></div>
   </div>
 
-  <!-- RANKING -->
-  <div class="rank-section">
-    <h3 style="font-weight:600;margin-bottom:12px;font-size:1em;">🏆 月度涨幅排行</h3>
-    <div style="overflow-x:auto;">
-      <table class="rank-table" id="rankTable">
-        <thead>
-          <tr><th>#</th><th>品种</th><th>分类</th><th style="text-align:right">最新价</th><th style="text-align:right">月涨幅</th><th style="text-align:right">季涨幅</th><th style="text-align:right">年涨幅</th></tr>
-        </thead>
-        <tbody id="rankBody"></tbody>
-      </table>
+  <!-- ====== SECTION: RANKING ====== -->
+  <div class="section-content" id="sectionRanking">
+    <div class="rank-section">
+      <div class="filter-bar" id="rankFilterBar">
+        <button class="filter-btn active" data-filter="all">全部</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="rank-table" id="rankTable">
+          <thead>
+            <tr><th>#</th><th>品种</th><th>分类</th><th style="text-align:right">最新价</th><th style="text-align:right">周涨</th><th style="text-align:right">月涨</th><th style="text-align:right">季涨</th><th style="text-align:right">年涨</th><th>数据</th></tr>
+          </thead>
+          <tbody id="rankBody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
   <div class="footer">
-    <p>数据来源：广期所 · 上期所 · 生意社 · 百川盈孚 · 隆众资讯 · 手工录入</p>
-    <p style="margin-top:4px;">⚠️ 不构成投资建议 · 数据仅供参考 · 每日更新</p>
+    <p>自动: 上期所·大商所·郑商所·广期所·能源中心 ｜ 手动: 百川盈孚·隆众资讯·生意社</p>
+    <p style="margin-top:4px;">⚠️ 数据仅供参考 · 期货数据为前一交易日收盘价 · 不构成投资建议</p>
   </div>
 </div>
 
@@ -314,18 +268,18 @@ let data = null;
 let chart = null;
 let selectedForChart = null;
 
-function fmt(num) {
-  if (num === null || num === undefined) return '—';
-  if (typeof num === 'string') return num;
-  if (num >= 10000) return num.toLocaleString('zh-CN');
-  if (num >= 100) return num.toLocaleString('zh-CN', {maximumFractionDigits:1});
-  return num.toLocaleString('zh-CN', {maximumFractionDigits:2});
+function fmt(v) {
+  if (v === null || v === undefined) return '—';
+  if (typeof v === 'string') return v;
+  if (v >= 100000) return v.toLocaleString('zh-CN', {maximumFractionDigits:0});
+  if (v >= 1000) return v.toLocaleString('zh-CN', {maximumFractionDigits:1});
+  if (v >= 100) return v.toLocaleString('zh-CN', {maximumFractionDigits:1});
+  return v.toLocaleString('zh-CN', {maximumFractionDigits:2});
 }
 
-function pct(num) {
-  if (num === null || num === undefined || !isFinite(num)) return '—';
-  const s = num >= 0 ? '+' : '';
-  return s + num.toFixed(1) + '%';
+function pct(n) {
+  if (n === null || n === undefined || !isFinite(n)) return '—';
+  return (n >= 0 ? '+' : '') + n.toFixed(1) + '%';
 }
 
 function calcPct(now, prev) {
@@ -334,21 +288,26 @@ function calcPct(now, prev) {
 }
 
 function badge(chg) {
-  if (chg === null || chg === undefined) return '<span class="change-badge flat">—</span>';
+  if (chg === null) return '<span class="change-badge flat">—</span>';
   if (chg > 0) return `<span class="change-badge up">+${chg.toFixed(1)}%</span>`;
   if (chg < 0) return `<span class="change-badge down">${chg.toFixed(1)}%</span>`;
-  return '<span class="change-badge flat">0%</span>';
+  return '<span class="change-badge flat">+0.0%</span>';
 }
 
 function arrow(chg) {
   if (chg === null) return '';
-  if (chg > 20) return '🔴↑↑';
-  if (chg > 8) return '🔴↑';
-  if (chg > 2) return '🟡↑';
-  if (chg < -20) return '🟢↓↓';
-  if (chg < -8) return '🟢↓';
-  if (chg < -2) return '🟡↓';
+  if (chg > 30) return '🔴↑↑↑';
+  if (chg > 10) return '🔴↑↑';
+  if (chg > 3) return '🔴↑';
+  if (chg < -30) return '🟢↓↓↓';
+  if (chg < -10) return '🟢↓↓';
+  if (chg < -3) return '🟢↓';
   return '➖';
+}
+
+function isAuto(p) {
+  const src = p.source || '';
+  return src.includes('自动') || src.includes('·自动');
 }
 
 function categories(products) {
@@ -357,76 +316,85 @@ function categories(products) {
   return ['全部', ...Array.from(cats).sort()];
 }
 
+// ======== RENDER ========
 function render() {
   if (!data) return;
   const prods = data.products;
-
-  // Update time
   document.getElementById('updateTime').textContent = `更新: ${data.update_time || '—'}`;
+  renderFilter();
+  renderStats();
+  renderCards();
+  renderChartTabs();
+  renderNews();
+  renderRank();
+}
 
-  // Filters
-  const filterBar = document.getElementById('filterBar');
-  const cats = categories(prods);
-  filterBar.innerHTML = cats.map(c =>
-    `<button class="filter-btn ${c === '全部' ? 'active' : ''}" data-filter="${c}">${c}</button>`
-  ).join('');
-  document.querySelectorAll('.filter-btn').forEach(btn => {
+function renderFilter() {
+  const bar = document.getElementById('filterBar');
+  const rbar = document.getElementById('rankFilterBar');
+  const cats = categories(data.products);
+  const html = cats.map(c => `<button class="filter-btn ${c === '全部' ? 'active' : ''}" data-filter="${c}">${c}</button>`).join('');
+  bar.innerHTML = html;
+  rbar.innerHTML = html;
+  document.querySelectorAll('#filterBar .filter-btn, #rankFilterBar .filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      const parent = btn.closest('.filter-bar');
+      parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      renderCards();
-      renderRank();
+      if (parent.id === 'filterBar') { renderCards(); renderStats(); }
+      else { renderRank(); }
     });
   });
+}
 
-  // Stats
-  const activeFilter = document.querySelector('.filter-btn.active')?.dataset?.filter || '全部';
-  const filtered = activeFilter === '全部' ? prods : prods.filter(p => p.category === activeFilter);
-  const up = filtered.filter(p => calcPct(p.price, p.month_ago) > 0).length;
-  const down = filtered.filter(p => calcPct(p.price, p.month_ago) < 0).length;
-  const hot = filtered.filter(p => calcPct(p.price, p.month_ago) > 20).length;
+function renderStats() {
+  const act = document.querySelector('#filterBar .filter-btn.active')?.dataset?.filter || 'all';
+  const f = act === 'all' ? data.products : data.products.filter(p => p.category === act);
+  const up = f.filter(p => (calcPct(p.price, p.month_ago)||0) > 0).length;
+  const down = f.filter(p => (calcPct(p.price, p.month_ago)||0) < 0).length;
+  const hot = f.filter(p => (calcPct(p.price, p.month_ago)||0) > 20).length;
+  const auto = f.filter(p => isAuto(p)).length;
+  const manual = f.filter(p => !isAuto(p)).length;
   document.getElementById('upCount').textContent = up;
   document.getElementById('downCount').textContent = down;
   document.getElementById('hotCount').textContent = hot;
-  document.getElementById('totalCount').textContent = filtered.length;
-
-  renderCards();
-  renderChartTabs();
-  renderRank();
+  document.getElementById('autoCount').textContent = auto;
+  document.getElementById('manualCount').textContent = manual;
+  document.getElementById('totalCount').textContent = f.length;
 }
 
 function renderCards() {
   const grid = document.getElementById('cardGrid');
-  const activeFilter = document.querySelector('.filter-btn.active')?.dataset?.filter || '全部';
-  const prods = activeFilter === '全部' ? data.products : data.products.filter(p => p.category === activeFilter);
-
+  const act = document.querySelector('#filterBar .filter-btn.active')?.dataset?.filter || 'all';
+  const prods = act === 'all' ? data.products : data.products.filter(p => p.category === act);
   grid.innerHTML = prods.map(p => {
-    const chgDay = calcPct(p.price, p.prev_close);
-    const chgWeek = calcPct(p.price, p.week_ago);
-    const chgMonth = calcPct(p.price, p.month_ago);
-    const sourceClass = (p.source || '').includes('所') ? 'badge-auto' : 'badge-manual';
+    const cd = calcPct(p.price, p.prev_close);
+    const cw = calcPct(p.price, p.week_ago);
+    const cm = calcPct(p.price, p.month_ago);
+    const cq = calcPct(p.price, p.quarter_ago);
+    const cy = calcPct(p.price, p.year_ago);
+    const srcClass = isAuto(p) ? 'badge-auto' : 'badge-manual';
     return `<div class="card" data-id="${p.id}">
       <div class="card-top">
         <span class="card-cat">${p.category}</span>
-        <span class="${sourceClass}" style="padding:2px 8px;border-radius:8px;font-size:0.7em;">${p.source||'手动'}</span>
+        <span class="${srcClass}" style="padding:1px 7px;border-radius:6px;font-size:0.65em;">${p.source||'手动'}</span>
       </div>
       <div class="card-name">${p.name}</div>
       <div class="card-price-row">
         <span class="card-price">${fmt(p.price)}</span>
         <span class="card-unit">${p.unit}</span>
-        ${arrow(chgMonth)}
+        <span class="card-arrow">${arrow(cm)}</span>
       </div>
       <div class="card-changes">
-        ${badge(chgDay)} <span style="font-size:0.7em;color:var(--text-dim);">日</span>
-        ${badge(chgWeek)} <span style="font-size:0.7em;color:var(--text-dim);">周</span>
-        ${badge(chgMonth)} <span style="font-size:0.7em;color:var(--text-dim);">月</span>
-        ${badge(calcPct(p.price, p.quarter_ago))} <span style="font-size:0.7em;color:var(--text-dim);">季</span>
-        ${badge(calcPct(p.price, p.year_ago))} <span style="font-size:0.7em;color:var(--text-dim);">年</span>
+        ${badge(cd)} <span style="font-size:0.62em;color:var(--text-dim);">日</span>
+        ${badge(cw)} <span style="font-size:0.62em;color:var(--text-dim);">周</span>
+        ${badge(cm)} <span style="font-size:0.62em;color:var(--text-dim);">月</span>
+        ${badge(cq)} <span style="font-size:0.62em;color:var(--text-dim);">季</span>
+        ${badge(cy)} <span style="font-size:0.62em;color:var(--text-dim);">年</span>
       </div>
-      <div class="card-stock">📌 ${p.pe_stock || '—'}</div>
+      ${p.pe_stock ? `<div class="card-stock">📌 ${p.pe_stock}</div>` : ''}
     </div>`;
   }).join('');
-
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
       const id = card.dataset.id;
@@ -435,34 +403,29 @@ function renderCards() {
       card.style.borderColor = 'var(--accent)';
     });
   });
-
-  // Auto-select first if none selected
-  if (!selectedForChart && prods.length > 0) {
-    selectProduct(prods[0].id);
-  }
 }
 
 function selectProduct(id) {
   selectedForChart = id;
   const p = data.products.find(pr => pr.id === id);
   if (!p) return;
-
   document.getElementById('chartEmpty').style.display = 'none';
   updateChart(p);
-
-  // highlight card
   document.querySelectorAll('.card').forEach(c => c.style.borderColor = '');
-  const cardEl = document.querySelector(`.card[data-id="${id}"]`);
-  if (cardEl) cardEl.style.borderColor = 'var(--accent)';
-
-  // highlight tab
+  const el = document.querySelector(`.card[data-id="${id}"]`);
+  if (el) el.style.borderColor = 'var(--accent)';
   document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
-  document.querySelector(`.chart-tab[data-id="${id}"]`)?.classList.add('active');
+  const tab = document.querySelector(`.chart-tab[data-id="${id}"]`);
+  if (tab) tab.classList.add('active');
+  else { renderChartTabs(); document.querySelector(`.chart-tab[data-id="${id}"]`)?.classList.add('active'); }
 }
 
 function renderChartTabs() {
   const container = document.getElementById('chartTabs');
-  container.innerHTML = data.products.map(p =>
+  if (!container) return;
+  const act = document.querySelector('#filterBar .filter-btn.active')?.dataset?.filter || 'all';
+  const prods = act === 'all' ? data.products : data.products.filter(p => p.category === act);
+  container.innerHTML = prods.map(p =>
     `<button class="chart-tab ${p.id === selectedForChart ? 'active' : ''}" data-id="${p.id}">${p.name}</button>`
   ).join('');
   document.querySelectorAll('.chart-tab').forEach(btn => {
@@ -473,88 +436,109 @@ function renderChartTabs() {
 function updateChart(p) {
   const ctx = document.getElementById('priceChart').getContext('2d');
   if (chart) chart.destroy();
-
-  const values = p.prices.map(v => v.price);
+  if (!p.prices || p.prices.length < 2) {
+    document.getElementById('chartEmpty').style.display = 'flex';
+    document.getElementById('chartEmpty').textContent = '⚠️ 历史数据不足';
+    return;
+  }
+  const vals = p.prices.map(v => v.price);
   const labels = p.prices.map(v => v.date);
-
-  const isUp = values[values.length-1] >= values[0];
+  const isUp = vals[vals.length-1] >= vals[0];
   const lineColor = isUp ? '#ef4444' : '#22c55e';
-  const fillColor = isUp ? 'rgba(239,68,68,0.08)' : 'rgba(34,197,94,0.08)';
-
   chart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: labels,
+      labels,
       datasets: [{
         label: `${p.name} (${p.unit})`,
-        data: values,
+        data: vals,
         borderColor: lineColor,
-        backgroundColor: fillColor,
+        backgroundColor: isUp ? 'rgba(239,68,68,0.06)' : 'rgba(34,197,94,0.06)',
         fill: true,
         tension: 0.3,
-        pointRadius: 3,
+        pointRadius: 2,
         pointBackgroundColor: lineColor,
         borderWidth: 2,
       }]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => `${ctx.parsed.y} ${p.unit}`
-          }
-        }
+        tooltip: { callbacks: { label: ctx => `${fmt(ctx.parsed.y)} ${p.unit}` } }
       },
       scales: {
-        x: {
-          ticks: { color: '#94a3b8', maxTicksLimit: 10, font: {size: 10} },
-          grid: { color: 'rgba(148,163,184,0.1)' }
-        },
-        y: {
-          ticks: { color: '#94a3b8', font: {size: 10} },
-          grid: { color: 'rgba(148,163,184,0.1)' }
-        }
+        x: { ticks: { color: '#94a3b8', maxTicksLimit: 8, font: {size:9} }, grid: { color: 'rgba(148,163,184,0.08)' } },
+        y: { ticks: { color: '#94a3b8', font: {size:9} }, grid: { color: 'rgba(148,163,184,0.08)' } }
       }
     }
   });
 }
 
-function renderRank() {
-  const activeFilter = document.querySelector('.filter-btn.active')?.dataset?.filter || '全部';
-  const prods = activeFilter === '全部' ? data.products : data.products.filter(p => p.category === activeFilter);
+// ======== NEWS ========
+function renderNews() {
+  const container = document.getElementById('newsList');
+  if (!data.news || data.news.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:var(--text-dim);padding:40px 0;">暂无资讯数据</div>';
+    return;
+  }
+  const items = data.news.sort((a,b) => b.date.localeCompare(a.date));
+  const html = items.map(n => {
+    const tags = (n.tags || []).map(t => `<span class="news-tag">${t}</span>`).join('');
+    const title = n.url ? `<a href="${n.url}" target="_blank">${n.title}</a>` : n.title;
+    return `<div class="news-item" style="display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;">
+      <span class="news-date">${n.date}</span>
+      <span class="news-source">[${n.source}]</span>
+      <span class="news-title">${title}</span>
+      <span class="news-tags">${tags}</span>
+    </div>`;
+  }).join('');
+  container.innerHTML = `<div class="card" style="padding:0;"><div class="news-list">${html}</div></div>`;
+}
 
+// ======== RANKING ========
+function renderRank() {
+  const body = document.getElementById('rankBody');
+  const act = document.querySelector('#rankFilterBar .filter-btn.active')?.dataset?.filter || 'all';
+  const prods = act === 'all' ? data.products : data.products.filter(p => p.category === act);
   const ranked = prods.map(p => ({
     ...p,
-    chgMonth: calcPct(p.price, p.month_ago),
-    chgQuarter: calcPct(p.price, p.quarter_ago),
-    chgYear: calcPct(p.price, p.year_ago),
-  })).sort((a, b) => (b.chgMonth || -9999) - (a.chgMonth || -9999));
-
-  const body = document.getElementById('rankBody');
-  body.innerHTML = ranked.map((p, i) => {
-    let cls = '';
-    if (i === 0) cls = 'rank-1st';
-    else if (i === 1) cls = 'rank-2nd';
-    else if (i === 2) cls = 'rank-3rd';
+    chgW: calcPct(p.price, p.week_ago),
+    chgM: calcPct(p.price, p.month_ago),
+    chgQ: calcPct(p.price, p.quarter_ago),
+    chgY: calcPct(p.price, p.year_ago),
+  })).sort((a,b) => (b.chgM||-9999) - (a.chgM||-9999));
+  body.innerHTML = ranked.map((p,i) => {
+    const src = isAuto(p) ? '🟢自动' : '🔵手动';
     return `<tr>
-      <td><span class="rank-num ${cls}">${i+1}</span></td>
-      <td class="td-name">${p.name}</td>
+      <td><span class="rank-num">${i+1}</span></td>
+      <td style="font-weight:600;">${p.name}</td>
       <td style="color:var(--text-dim);font-size:0.85em;">${p.category}</td>
-      <td class="td-price">${fmt(p.price)}</td>
-      <td class="td-chg ${(p.chgMonth||0)>=0?'up':'down'}">${pct(p.chgMonth)}</td>
-      <td class="td-chg ${(p.chgQuarter||0)>=0?'up':'down'}">${pct(p.chgQuarter)}</td>
-      <td class="td-chg ${(p.chgYear||0)>=0?'up':'down'}">${pct(p.chgYear)}</td>
+      <td style="text-align:right">${fmt(p.price)}</td>
+      <td class="${(p.chgW||0)>=0?'up':'down'}" style="text-align:right">${pct(p.chgW)}</td>
+      <td class="${(p.chgM||0)>=0?'up':'down'}" style="text-align:right">${pct(p.chgM)}</td>
+      <td class="${(p.chgQ||0)>=0?'up':'down'}" style="text-align:right">${pct(p.chgQ)}</td>
+      <td class="${(p.chgY||0)>=0?'up':'down'}" style="text-align:right">${pct(p.chgY)}</td>
+      <td style="font-size:0.75em;">${src}</td>
     </tr>`;
   }).join('');
 }
 
-// Load data (with cache busting)
+// ======== SECTION SWITCHING ========
+function switchSection(name) {
+  document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.section-tab[data-section="${name}"]`)?.classList.add('active');
+  document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+  document.getElementById(`section${name.charAt(0).toUpperCase()+name.slice(1)}`)?.classList.add('active');
+}
+
+document.querySelectorAll('.section-tab').forEach(tab => {
+  tab.addEventListener('click', () => switchSection(tab.dataset.section));
+});
+
+// ======== LOAD ========
 function loadData() {
-  const cacheBuster = '?_=' + Date.now();
-  fetch('data.json' + cacheBuster)
+  fetch('data.json?_=' + Date.now())
     .then(r => r.json())
     .then(d => {
       data = d;
@@ -562,15 +546,14 @@ function loadData() {
     })
     .catch(() => {
       document.getElementById('cardGrid').innerHTML =
-        '<div style="text-align:center;color:var(--text-dim);padding:60px 0;">⚠️ 数据加载失败，请检查 data.json 文件</div>';
+        '<div style="text-align:center;color:var(--text-dim);padding:60px 0;">⚠️ 数据加载失败</div>';
     });
 }
 
-// Refresh button
 document.getElementById('refreshBtn').addEventListener('click', () => {
   document.getElementById('refreshBtn').textContent = '⟳ 更新中...';
   loadData();
-  setTimeout(() => { document.getElementById('refreshBtn').textContent = '⟳ 刷新'; }, 1000);
+  setTimeout(() => { document.getElementById('refreshBtn').textContent = '⟳ 刷新'; }, 1500);
 });
 
 loadData();
