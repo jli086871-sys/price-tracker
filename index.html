@@ -483,13 +483,15 @@ function renderNews() {
     return;
   }
   const items = data.news.sort((a,b) => b.date.localeCompare(a.date));
-  const html = items.map(n => {
+  const html = items.map((n, idx) => {
     const tags = (n.tags || []).map(t => `<span class="news-tag">${t}</span>`).join('');
-    const title = n.url ? `<a href="${n.url}" target="_blank">${n.title}</a>` : n.title;
-    return `<div class="news-item" style="display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;">
+    // 有 url 直接打开原文，没有 url 则搜索标题
+    const clickUrl = n.url ? n.url : 'https://www.baidu.com/s?wd=' + encodeURIComponent(n.title);
+    const openIn = n.url ? '' : '';  // all open in new tab
+    return `<div class="news-item" style="display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;cursor:pointer;" onclick="window.open('${clickUrl.replace(/'/g, "\\'")}', '_blank')">
       <span class="news-date">${n.date}</span>
       <span class="news-source">[${n.source}]</span>
-      <span class="news-title">${title}</span>
+      <span class="news-title">${n.title} ${n.url ? '' : '🔍'}</span>
       <span class="news-tags">${tags}</span>
     </div>`;
   }).join('');
