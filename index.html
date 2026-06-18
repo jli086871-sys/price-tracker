@@ -249,6 +249,7 @@
       <span id="updateTime">加载中...</span>
       <span class="badge-auto">期货自动</span>
       <span class="badge-manual">特气手动</span>
+      <button id="refreshBtn" style="background:var(--accent);color:#fff;border:none;border-radius:6px;padding:4px 12px;cursor:pointer;font-size:0.82em;">⟳ 刷新</button>
     </div>
   </div>
 
@@ -550,17 +551,29 @@ function renderRank() {
   }).join('');
 }
 
-// Load data
-fetch('data.json')
-  .then(r => r.json())
-  .then(d => {
-    data = d;
-    render();
-  })
-  .catch(() => {
-    document.getElementById('cardGrid').innerHTML =
-      '<div style="text-align:center;color:var(--text-dim);padding:60px 0;">⚠️ 数据加载失败，请检查 data.json 文件</div>';
-  });
+// Load data (with cache busting)
+function loadData() {
+  const cacheBuster = '?_=' + Date.now();
+  fetch('data.json' + cacheBuster)
+    .then(r => r.json())
+    .then(d => {
+      data = d;
+      render();
+    })
+    .catch(() => {
+      document.getElementById('cardGrid').innerHTML =
+        '<div style="text-align:center;color:var(--text-dim);padding:60px 0;">⚠️ 数据加载失败，请检查 data.json 文件</div>';
+    });
+}
+
+// Refresh button
+document.getElementById('refreshBtn').addEventListener('click', () => {
+  document.getElementById('refreshBtn').textContent = '⟳ 更新中...';
+  loadData();
+  setTimeout(() => { document.getElementById('refreshBtn').textContent = '⟳ 刷新'; }, 1000);
+});
+
+loadData();
 </script>
 </body>
 </html>
