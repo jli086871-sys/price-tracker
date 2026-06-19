@@ -155,6 +155,106 @@ def try_float(v):
         return None
 
 
+# ====================================================================
+# 公开网页爬虫 —— 生意社 / 百川盈孚公开报价
+# 这些品种的公开页面无需登录，可直接抓取
+# ====================================================================
+
+def scrape_100ppi_price(url, name):
+    """爬取生意社（100ppi.com）公开报价页面的现货价格"""
+    try:
+        resp = requests.get(url, headers=HEADERS, timeout=15)
+        resp.encoding = "utf-8"
+        soup = BeautifulSoup(resp.text, "lxml")
+        # 尝试多种价格选择器
+        for sel in [".price-today .strong", ".newprice", ".price_num",
+                    ".hq_price", ".hq_price_span", ".price_value",
+                    "span[class*='price']", "td[class*='price']"]:
+            el = soup.select_one(sel)
+            if el:
+                text = el.get_text(strip=True)
+                nums = re.findall(r'\d+\.?\d*', text.replace(",", ""))
+                if nums:
+                    price = float(nums[0])
+                    print(f"  [100ppi] {name}: → {price}")
+                    return price
+        # 备用：搜所有常见价格标签
+        for tag in ["strong", "span", "b", "div"]:
+            for el in soup.find_all(tag):
+                text = el.get_text(strip=True)
+                if re.search(r'^\s*\d+[\.\d]*\s*(元|万|吨)', text):
+                    nums = re.findall(r'\d+\.?\d*', text)
+                    if nums:
+                        price = float(nums[0])
+                        print(f"  [100ppi] {name} (fn): → {price}")
+                        return price
+        print(f"  [100ppi] {name}: 未找到价格元素")
+        return None
+    except Exception as e:
+        print(f"  [WARN] 100ppi {name} 爬取失败: {e}")
+        return None
+
+
+def scrape_smm_price(url, name):
+    """爬取上海有色网（SMM）公开现货报价"""
+    try:
+        resp = requests.get(url, headers=HEADERS, timeout=15)
+        resp.encoding = "utf-8"
+        soup = BeautifulSoup(resp.text, "lxml")
+        # SMM 公开页面常用结构
+        for sel in [".price", ".current-price", ".value", ".price-value",
+                    "span[class*='price']", "div[class*='price']"]:
+            el = soup.select_one(sel)
+            if el:
+                text = el.get_text(strip=True)
+                nums = re.findall(r'\d+\.?\d*', text.replace(",", ""))
+                if nums:
+                    price = float(nums[0])
+                    print(f"  [SMM] {name}: → {price}")
+                    return price
+        print(f"  [SMM] {name}: 未找到价格元素")
+        return None
+    except Exception as e:
+        print(f"  [WARN] SMM {name} 爬取失败: {e}")
+        return None
+
+
+# 手动品种的公开爬虫配置
+# 格式: { "品种id": ("url", "爬取函数", "描述") }
+MANUAL_SCRAPERS = {
+    "tungsten": (
+        "https://www.100ppi.com/price/detail-1429.html",
+        scrape_100ppi_price,
+        "钨精矿"
+    ),
+    "anhydrous_hf": (
+        "https://www.100ppi.com/price/detail-1008.html",
+        scrape_100ppi_price,
+        "无水氟化氢"
+    ),
+    "fluorspar": (
+        "https://www.100ppi.com/price/detail-1441.html",
+        scrape_100ppi_price,
+        "萤石"
+    ),
+}
+
+
+def run_manual_scrapers(data):
+    """运行手动品种的公开网页爬虫"""
+    print(f"\n[手动品种公开爬虫] 目标: {len(MANUAL_SCRAPERS)} 个")
+    updated = 0
+    for pid, (url, scraper_fn, name) in MANUAL_SCRAPERS.items():
+        prod = find_product(data, pid)
+        if not prod:
+            print(f"  [SKIP] {name}: 未在data.json中找到")
+            continue
+        price = scraper_fn(url, name)
+        if price and update_price(prod, price):
+            updated += 1
+    return updated
+
+
 def main():
     print("=" * 55)
     print(f"材料涨价监测站 · 全品种价格爬虫 V2")
@@ -192,17 +292,23 @@ def main():
         else:
             failed.append(f"{pid}(新浪未返回数据)")
 
+    # 运行公开网页爬虫（钨精矿/无水氟化氢/萤石）
+    manual_updated = run_manual_scrapers(data)
+    updated += manual_updated
+
     # 更新全局时间
     data["update_time"] = datetime.now().strftime("%Y-%m-%d")
 
     print(f"\n{'='*55}")
-    print(f"更新统计: 成功 {updated}/{len(CONTRACTS)} 个品种")
+    print(f"更新统计: 成功 {updated}/{len(CONTRACTS) + len(MANUAL_SCRAPERS)} 个品种")
     if succeeded:
-        print(f"✅ 已更新: {', '.join(succeeded[:10])}{'...' if len(succeeded)>10 else ''}")
+        print(f"✅ 期货自动: {', '.join(succeeded[:10])}{'...' if len(succeeded)>10 else ''}")
+    if manual_updated:
+        print(f"✅ 公开网页: 钨精矿/氟化氢/萤石 共 {manual_updated} 个已更新")
     if failed:
-        print(f"❌ 未更新: {', '.join(failed[:10])}{'...' if len(failed)>10 else ''}")
+        print(f"❌ 未更新: {', '.join(failed[:8])}{'...' if len(failed)>8 else ''}")
     print(f"下次自动更新: 工作日 08:30 / 17:00 (UTC+8)")
-    print(f"特气类(6种) + 氟化工(2种) + 小金属(1种): 手动编辑 data.json")
+    print(f"仍需手动维护: WF₆ / NF₃ / 6N氦气 / 硅烷（百川盈孚/隆众需付费会员）")
     print(f"{'='*55}")
 
     if updated > 0:
